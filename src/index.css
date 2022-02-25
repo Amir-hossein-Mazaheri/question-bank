@@ -9,3 +9,10 @@
   font-family: "Vazir FD", sans-serif !important;
   font-size: 1rem;
 }
+
+a,
+a:hover,
+a:focus,
+a:visited {
+  color: inherit;
+}

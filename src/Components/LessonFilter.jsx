@@ -3,77 +3,7 @@ import { Tree } from "antd";
 import axios from "axios";
 import useSWR from "swr";
 import { useDispatch } from "react-redux";
-
-const treeData = [
-  {
-    title: "0-3",
-    key: "0-5",
-    children: [
-      {
-        title: "0-0-0",
-        key: "0-0-0",
-        children: [
-          {
-            title: "0-0-0-0",
-            key: "0-0-0-0",
-          },
-          {
-            title: "0-0-0-1",
-            key: "0-0-0-1",
-          },
-          {
-            title: "0-0-0-2",
-            key: "0-0-0-2",
-          },
-        ],
-      },
-      {
-        title: "0-0-1",
-        key: "0-0-1",
-        children: [
-          {
-            title: "0-0-1-0",
-            key: "0-0-1-0",
-          },
-          {
-            title: "0-0-1-1",
-            key: "0-0-1-1",
-          },
-          {
-            title: "0-0-1-2",
-            key: "0-0-1-2",
-          },
-        ],
-      },
-      {
-        title: "0-0-2",
-        key: "0-0-2",
-      },
-    ],
-  },
-  {
-    title: "0-1",
-    key: "0-1",
-    children: [
-      {
-        title: "0-1-0-0",
-        key: "0-1-0-0",
-      },
-      {
-        title: "0-1-0-1",
-        key: "0-1-0-1",
-      },
-      {
-        title: "0-1-0-2",
-        key: "0-1-0-2",
-      },
-    ],
-  },
-  {
-    title: "0-2",
-    key: "0-2",
-  },
-];
+import { SET_SUBJECT } from "../Store/entities/filters";
 
 const formTreeData = (array) => {
   return array.map((major) => ({
@@ -108,32 +38,23 @@ function LessonFilter() {
   console.log("lesson filters : ", data);
 
   useEffect(() => {
-      dispatch();
+    const filteredValues = checkedValues.filter(
+      (value) => value.split("-")[0] === "subject"
+    );
+
+    dispatch(SET_SUBJECT({ subject: filteredValues }));
   }, [checkedValues, dispatch]);
-
-  //   const onExpand = (expandedKeysValue) => {
-  //     console.log("onExpand", expandedKeysValue); // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-  //     // or, you can remove all expanded children keys.
-
-  //     setExpandedKeys(expandedKeysValue);
-  //     setAutoExpandParent(false);
-  //   };
 
   const onCheck = (checkedKeysValue) => {
     setCheckedValues(checkedKeysValue);
   };
-
-  //   const onSelect = (selectedKeysValue, info) => {
-  //     console.log("onSelect", info);
-  //     setSelectedKeys(selectedKeysValue);
-  //   };
 
   if (!data) {
     return <p>Loading...</p>;
   }
 
   return (
-    <div className="px-5 py-3 bg-white space-y-3">
+    <div className="px-5 py-3 bg-white space-y-3 rounded-md">
       <h2>مبحث درسی :</h2>
       <Tree
         checkable
