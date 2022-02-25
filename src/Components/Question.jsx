@@ -41,7 +41,10 @@ function Question({
         </ul>
       </div>
       <div>
-        <p className="px-5 py-2 rounded-md bg-green-200">{correctAnswer}</p>
+        <p className="px-5 py-2 rounded-md bg-green-200">
+          <span>جواب صحیح : </span>
+          {correctAnswer}
+          </p>
       </div>
       <div className="flex gap-5 text-white self-end">
         <div className={`bg-green-500 cursor-pointer ${commonPadding}`}>

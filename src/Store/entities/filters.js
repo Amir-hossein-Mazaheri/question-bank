@@ -6,10 +6,10 @@ const filters = createSlice({
     sortBy: "all",
     SGLS: {
       // SGLS stands for Grade Lesson Season
-      study: "",
+      major: "",
       grade: "",
-      lesson: "",
-      season: "",
+      course: "",
+      subject: "",
     },
     hardness: "all", //all for no filter 1 for easy 2 for medium 3 for hard
   },
@@ -20,19 +20,13 @@ const filters = createSlice({
     SET_HARDNESS: (store, action) => {
       store.hardness = action.payload.hardness;
     },
-    SET_GRADE: (store, action) => {
-      store.SGLS.grade = action.payload.grade;
-    },
-    SET_LESSON: (store, action) => {
-      store.SGLS.lesson = action.payload.lesson;
-    },
-    SET_SEASON: (store, action) => {
-      store.SGLS.season = action.payload.season;
+    SET_SUBJECT: (store, action) => {
+      store.SGLS.subject = action.payload.subject;
     },
   },
 });
 
 export default filters.reducer;
 
-export const { SET_SORT, SET_HARDNESS, SET_GRADE, SET_LESSON, SET_SEASON } =
+export const { SET_SORT, SET_HARDNESS, SET_SUBJECT } =
   filters.actions;
