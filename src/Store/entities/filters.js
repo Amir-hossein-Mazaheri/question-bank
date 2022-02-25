@@ -11,7 +11,7 @@ const filters = createSlice({
       course: "",
       subject: "",
     },
-    hardness: "all", //all for no filter 1 for easy 2 for medium 3 for hard
+    hardness: "all", // all for no filter 1 for easy 2 for medium 3 for hard
   },
   reducers: {
     SET_SORT: (store, action) => {
@@ -28,5 +28,4 @@ const filters = createSlice({
 
 export default filters.reducer;
 
-export const { SET_SORT, SET_HARDNESS, SET_SUBJECT } =
-  filters.actions;
+export const { SET_SORT, SET_HARDNESS, SET_SUBJECT } = filters.actions;

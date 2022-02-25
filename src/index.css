@@ -10,6 +10,11 @@
   font-size: 1rem;
 }
 
+.ck.ck-editor__editable_inline {
+  direction: rtl;
+  text-align: right;
+}
+
 a,
 a:hover,
 a:focus,
