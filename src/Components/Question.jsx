@@ -26,7 +26,7 @@ function Question({
   const commonPadding = "px-3 py-1 rounded-md";
 
   return (
-    <div className="px-8 py-5 flex flex-col gap-7 shadow-lg rounded-lg shadow-gray-300/60 bg-white/20 backdrop-blur-3xl">
+    <div className="px-8 py-5 flex flex-col gap-7 shadow-md shadow-gray-200 rounded-lg bg-white/10 backdrop-blur-lg">
       <div className="flex items-center justify-between">
         <div>
           <p>{title}</p>

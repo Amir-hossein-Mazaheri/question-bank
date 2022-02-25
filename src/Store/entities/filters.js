@@ -4,13 +4,14 @@ const filters = createSlice({
   name: "filters",
   initialState: {
     sortBy: "all",
-    GLS: {
-      // gls stands for Grade Lesson Season
+    SGLS: {
+      // SGLS stands for Grade Lesson Season
+      study: "",
       grade: "",
       lesson: "",
       season: "",
     },
-    hardness: "2", // 1 for easy 2 for medium 3 for hard
+    hardness: "all", //all for no filter 1 for easy 2 for medium 3 for hard
   },
   reducers: {
     SET_SORT: (store, action) => {
@@ -20,13 +21,13 @@ const filters = createSlice({
       store.hardness = action.payload.hardness;
     },
     SET_GRADE: (store, action) => {
-      store.GLS.grade = action.payload.grade;
+      store.SGLS.grade = action.payload.grade;
     },
     SET_LESSON: (store, action) => {
-      store.GLS.lesson = action.payload.lesson;
+      store.SGLS.lesson = action.payload.lesson;
     },
     SET_SEASON: (store, action) => {
-      store.GLS.season = action.payload.season;
+      store.SGLS.season = action.payload.season;
     },
   },
 });

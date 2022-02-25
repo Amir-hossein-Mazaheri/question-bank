@@ -6,6 +6,7 @@ import Question from "../Question";
 import Container from "../../Layouts/Container";
 import SortBy from "../SortBy";
 import SearchBar from "../SearchBar";
+import Btn from "./Btn";
 
 function Contents() {
   const fetcher = (url) =>
@@ -22,7 +23,11 @@ function Contents() {
   );
 
   if (!questions) {
-    return <CircularProgress />;
+    return (
+      <Container className="relative h-screen">
+        <CircularProgress className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+      </Container>
+    );
   }
 
   console.log(questions);
@@ -30,16 +35,19 @@ function Contents() {
   return (
     <ContentLayout>
       <Container>
-        <div className="flex gap-7 items-center">
-          <SearchBar className="grow" />
+        <div className="relative after:absolute after:right-0 after:left-0 after:bottom-0 after:h-1">
+          <div className="flex gap-7 items-center">
+            <SearchBar className="grow" />
+            <Btn className="bg-indigo-600 text-white">اضافه کردن سوال</Btn>
+          </div>
+          <SortBy
+            sortTypes={{
+              همه: "all",
+              "بیشترین ریپورت": "most-reports",
+              سخترین: "hardest",
+            }}
+          />
         </div>
-        <SortBy
-          sortTypes={{
-            همه: "all",
-            "بیشترین ریپورت": "most-reports",
-            سخترین: "hardest",
-          }}
-        />
         <div className="space-y-8">
           {questions.map((question) => (
             <Question

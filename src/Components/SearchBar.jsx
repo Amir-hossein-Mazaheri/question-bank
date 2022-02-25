@@ -25,7 +25,7 @@ function SearchBar(props) {
             type="text"
             name="search-questions"
             id="search-questions"
-            className="outline-none"
+            className="outline-none w-full bg-transparent"
           />
         </div>
       </form>
