@@ -4,8 +4,10 @@ import useSWR from "swr";
 import ContentLayout from "../../Layouts/ContentsLayout";
 import Question from "../Question";
 import Container from "../../Layouts/Container";
+import SortBy from "../SortBy";
+import SearchBar from "../SearchBar";
 
-function Contents({ questions: q }) {
+function Contents() {
   const fetcher = (url) =>
     axios(url).then((data) =>
       data.data.map((d) => ({
@@ -14,7 +16,7 @@ function Contents({ questions: q }) {
       }))
     );
 
-  let { data: questions } = useSWR(
+  const { data: questions } = useSWR(
     "https://mocki.io/v1/e7db7c3c-9aba-4fb1-a93d-9abb325d654c",
     fetcher
   );
@@ -28,8 +30,16 @@ function Contents({ questions: q }) {
   return (
     <ContentLayout>
       <Container>
-        <div></div>
-        <div></div>
+        <div className="flex gap-7 items-center">
+          <SearchBar className="grow" />
+        </div>
+        <SortBy
+          sortTypes={{
+            همه: "all",
+            "بیشترین ریپورت": "most-reports",
+            سخترین: "hardest",
+          }}
+        />
         <div className="space-y-8">
           {questions.map((question) => (
             <Question
