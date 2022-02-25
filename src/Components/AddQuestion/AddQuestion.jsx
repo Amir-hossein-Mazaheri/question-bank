@@ -1,7 +1,9 @@
+import SelectCategory from "./SelectCategory";
+
 function AddQuestion() {
     return ( 
         <div>
-            <p>hello word</p>
+            <SelectCategory />
         </div>
      );
 }

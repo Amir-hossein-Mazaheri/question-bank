@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CircularProgress } from "@mui/material";
+import { Spin } from "antd";
 import useSWR from "swr";
 import ContentLayout from "../../Layouts/ContentsLayout";
 import Question from "../Question";
@@ -26,7 +26,7 @@ function Contents() {
   if (!questions) {
     return (
       <Container className="relative h-screen">
-        <CircularProgress className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <Spin className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       </Container>
     );
   }
