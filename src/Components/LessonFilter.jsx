@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { Tree } from "antd";
+import { Tree, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
 import useSWR from "swr";
 import { useDispatch } from "react-redux";
@@ -28,7 +29,10 @@ function LessonFilter() {
   const [checkedValues, setCheckedValues] = useState([]);
   const dispatch = useDispatch();
 
-  const fetcher = (url) => axios(url).then((data) => formTreeData(data.data));
+  const fetcher = useCallback(
+    (url) => axios(url).then((data) => formTreeData(data.data)),
+    []
+  );
 
   const { data } = useSWR(
     "https://mocki.io/v1/ecdc6a8b-010a-4214-815c-752a2429c350",
@@ -50,7 +54,8 @@ function LessonFilter() {
   };
 
   if (!data) {
-    return <p>Loading...</p>;
+    const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+    return <Spin indicator={loadingIcon} />;
   }
 
   return (

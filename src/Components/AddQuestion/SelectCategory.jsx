@@ -1,22 +1,20 @@
 import { Select } from "antd";
-import { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_CATEGORY } from "../../Store/entities/question";
 
 const { Option } = Select;
 
 function SelectCategory() {
-  const [major, setMajor] = useState("");
-  const [grade, setGrade] = useState("");
-  const [course, setCourse] = useState("");
-  const [subject, setSubject] = useState("");
+  const { major, grade, course } = useSelector(
+    (store) => store.entities.question.questionCategories
+  );
 
   const dispatch = useDispatch();
 
   const applySelectValue = useCallback(
-    (value, setter, type) => {
+    (value, type) => {
       dispatch(SET_CATEGORY({ type, value }));
-      setter(value);
     },
     [dispatch]
   );
@@ -29,7 +27,7 @@ function SelectCategory() {
           <Select
             defaultValue="رشته تحصیلی"
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, setMajor, "major")}
+            onChange={(value) => applySelectValue(value, "major")}
           >
             <Option value="tajrobi">تجربی</Option>
             <Option value="riazi">ریاضی</Option>
@@ -41,7 +39,7 @@ function SelectCategory() {
             defaultValue="پایه تحصیلی"
             disabled={major ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, setGrade, "grade")}
+            onChange={(value) => applySelectValue(value, "grade")}
           >
             <Option value="10">دهم</Option>
             <Option value="11">یازدهم</Option>
@@ -53,7 +51,7 @@ function SelectCategory() {
             defaultValue="نام درس"
             disabled={major && grade ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, setCourse, "course")}
+            onChange={(value) => applySelectValue(value, "course")}
           >
             <Option value="jack">ریاضی</Option>
             <Option value="lucy">فیزیک</Option>
@@ -64,7 +62,7 @@ function SelectCategory() {
             defaultValue="مبحث درسی"
             disabled={major && grade && course ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, setSubject, "subject")}
+            onChange={(value) => applySelectValue(value, "subject")}
           >
             <Option value="jack">ریاضی</Option>
             <Option value="lucy">فیزیک</Option>
