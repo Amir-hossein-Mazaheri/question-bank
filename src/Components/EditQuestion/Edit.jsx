@@ -2,10 +2,10 @@ import { message } from "antd";
 import axios from "axios";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import Btn from "../Common/Btn";
 import CancelButton from "../Common/CancelButton";
+import Btn from "../Common/Btn";
 
-function Submit() {
+function Edit() {
   const categories = useSelector(
     (store) => store.entities.question.questionCategories
   );
@@ -42,7 +42,7 @@ function Submit() {
       randomize: questionProperties.randomize,
       subject: categories.subject,
     };
-    const res = await axios.patch(
+    const res = await axios.post(
       "http://192.168.43.66:8000/questions/",
       postBody
     );
@@ -56,11 +56,11 @@ function Submit() {
       <div className="flex gap-5 text-white">
         <CancelButton />
         <Btn onClick={sendData} className="bg-green-500 rounded-full px-8">
-          ثبت
+          اعمال تغییرات
         </Btn>
       </div>
     </div>
   );
 }
 
-export default Submit;
+export default Edit;

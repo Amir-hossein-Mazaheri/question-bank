@@ -1,4 +1,4 @@
-import { Checkbox, Input, Radio, Select } from "antd";
+import { Checkbox, Radio, Select } from "antd";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useCallback } from "react";
@@ -21,8 +21,8 @@ function QuestionBody() {
     [dispatch]
   );
 
-  const checkedValue = useSelector(
-    (store) => store.entities.question.question.randomize
+  const questionProperties = useSelector(
+    (store) => store.entities.question.question
   );
 
   return (
@@ -43,75 +43,83 @@ function QuestionBody() {
       </div>
 
       <div className="mt-5 space-y-5">
-        <Input
-          onChange={(event) =>
-            dispatch(
-              SET_QUESTION_Property({ type: "title", data: event.target.value })
-            )
-          }
-          placeholder="عنوان سوال"
+        <CKEditor
+          editor={ClassicEditor}
+          data={questionProperties.title || "<p>صورت سوال</p>"}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            dispatch(SET_QUESTION_Property({ type: "title", data }));
+          }}
+          config={{
+            language: "fa",
+          }}
         />
-        <div>
-          <CKEditor
-            editor={ClassicEditor}
-            data="<p>متن سوال...</p>"
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              dispatch(SET_QUESTION_Property({ type: "body", data }));
-            }}
-          />
-        </div>
       </div>
 
       <div className="mt-8">
-        <div className="flex gap-5 items-center">
-          <span>گزینه ها : </span>
-          <div className="flex gap-5 items-center grow">
-            <Input
-              onChange={(event) =>
-                dispatch(
-                  SET_QUESTION_SET({ item: 0, data: event.target.value })
-                )
-              }
-              placeholder="گزینه اول"
+        <div className="flex gap-7 items-center">
+          <span className="grow">گزینه ها : </span>
+          <div className="flex gap-5 flex-wrap items-center grow">
+            <CKEditor
+              editor={ClassicEditor}
+              data={questionProperties.set[0] || "<p>گزینه اول</p>"}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                dispatch(SET_QUESTION_SET({ item: 0, data }));
+              }}
+              config={{
+                language: "fa",
+              }}
             />
-            <Input
-              onChange={(event) =>
-                dispatch(
-                  SET_QUESTION_SET({ item: 1, data: event.target.value })
-                )
-              }
-              placeholder="گزینه دوم"
+            <CKEditor
+              editor={ClassicEditor}
+              data={questionProperties.set[1] || "<p>گزینه دوم</p>"}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                dispatch(SET_QUESTION_SET({ item: 1, data }));
+              }}
+              config={{
+                language: "fa",
+              }}
             />
-            <Input
-              onChange={(event) =>
-                dispatch(
-                  SET_QUESTION_SET({ item: 2, data: event.target.value })
-                )
-              }
-              placeholder="گزینه سوم"
+            <CKEditor
+              editor={ClassicEditor}
+              data={questionProperties.set[2] || "<p>گزینه سوم</p>"}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                dispatch(SET_QUESTION_SET({ item: 2, data }));
+              }}
+              config={{
+                language: "fa",
+              }}
             />
-            <Input
-              onChange={(event) =>
-                dispatch(
-                  SET_QUESTION_SET({ item: 3, data: event.target.value })
-                )
-              }
-              placeholder="گزینه چهارم"
+            <CKEditor
+              editor={ClassicEditor}
+              data={questionProperties.set[3] || "<p>گزینه چهارم</p>"}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                dispatch(SET_QUESTION_SET({ item: 3, data }));
+              }}
+              config={{
+                language: "fa",
+              }}
             />
           </div>
         </div>
       </div>
 
       <div className="mt-8 space-y-5">
-        <span>پاسخ تشریحی</span>
+        <span>پاسخ تشریحی : </span>
         <div>
           <CKEditor
             editor={ClassicEditor}
-            data="<p>متن سوال...</p>"
+            data={questionProperties.fullAnswer || "<p>پاسخ کامل سوال...</p>"}
             onChange={(event, editor) => {
               const data = editor.getData();
               dispatch(SET_QUESTION_Property({ type: "fullAnswer", data }));
+            }}
+            config={{
+              language: "fa",
             }}
           />
         </div>
@@ -139,12 +147,12 @@ function QuestionBody() {
 
         <div>
           <Checkbox
-            checked={checkedValue}
+            checked={questionProperties.randomize}
             onChange={() =>
               dispatch(
                 SET_QUESTION_Property({
                   type: "randomize",
-                  data: !checkedValue,
+                  data: !questionProperties.randomize,
                 })
               )
             }

@@ -19,7 +19,7 @@ function Contents() {
     );
 
   const { data: questions } = useSWR(
-    "https://mocki.io/v1/e7db7c3c-9aba-4fb1-a93d-9abb325d654c",
+    "http://192.168.43.66:8080/questions/",
     fetcher
   );
 
@@ -31,7 +31,9 @@ function Contents() {
     );
   }
 
-  console.log(questions);
+  // console.log(questions);
+
+  console.log(questions[6].choices.find((choice) => choice.is_correct));
 
   return (
     <ContentLayout>
@@ -56,19 +58,16 @@ function Contents() {
           {questions.map((question) => (
             <Question
               key={question.id}
+              id={question.id}
               categories={question.categories}
+              hardness={question.level}
               title={question.description}
-              correctAnswer={question.answer.text}
-              numberHardnessLevel={question.level}
-              reports={120}
-            />
-          ))}
-          {questions.map((question) => (
-            <Question
-              key={question.id}
-              categories={question.categories}
-              title={question.description}
-              correctAnswer={question.answer.text}
+              set={question.choices.map((choice) => choice.text)}
+              correctAnswer={
+                question.choices.find((choice) => choice.is_correct).text
+              }
+              fullAnswer={question.completeAnswer}
+              randomize={question.randomize}
               numberHardnessLevel={question.level}
               reports={120}
             />

@@ -35,7 +35,8 @@ function LessonFilter() {
   );
 
   const { data } = useSWR(
-    "https://mocki.io/v1/ecdc6a8b-010a-4214-815c-752a2429c350",
+    // "https://mocki.io/v1/ecdc6a8b-010a-4214-815c-752a2429c350",
+    "http://192.168.43.66:8080/majors/",
     fetcher
   );
 

@@ -4,11 +4,11 @@ import Submit from "./Submit";
 
 function AddQuestion() {
   return (
-    <div>
+    <>
       <SelectCategory />
       <QuestionBody />
       <Submit />
-    </div>
+    </>
   );
 }
 
