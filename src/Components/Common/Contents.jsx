@@ -8,32 +8,36 @@ import SortBy from "../SortBy";
 import SearchBar from "../SearchBar";
 import Btn from "./Btn";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Contents() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const fetcher = (url) =>
-    axios(url).then((data) =>
-      data.data.map((d) => ({
-        ...d,
-        categories: [d.major, d.grade, d.course, d.subject],
-      }))
-    );
+    axios
+      .get(url, {
+        params: {
+          page: currentPage,
+        },
+      })
+      .then((data) => data);
 
-  const { data: questions } = useSWR(
-    "http://192.168.43.66:8080/questions/",
-    fetcher
-  );
+  const { data } = useSWR("http://192.168.43.66:8080/questions", fetcher);
 
-  if (!questions) {
+  console.log("data :", data);
+
+  const questions = data.results.map((d) => ({
+    ...d,
+    categories: [d.major, d.grade, d.course, d.subject],
+  }));
+
+  if (!data) {
     return (
       <Container className="relative h-screen">
         <Spin className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       </Container>
     );
   }
-
-  // console.log(questions);
-
-  console.log(questions[6].choices.find((choice) => choice.is_correct));
 
   return (
     <ContentLayout>
@@ -60,19 +64,16 @@ function Contents() {
               key={question.id}
               id={question.id}
               categories={question.categories}
-              hardness={question.level}
               title={question.description}
-              set={question.choices.map((choice) => choice.text)}
               correctAnswer={
                 question.choices.find((choice) => choice.is_correct).text
               }
-              fullAnswer={question.completeAnswer}
-              randomize={question.randomize}
-              numberHardnessLevel={question.level}
               reports={120}
+              numberHardnessLevel={question.level}
             />
           ))}
         </div>
+        {}
       </Container>
     </ContentLayout>
   );

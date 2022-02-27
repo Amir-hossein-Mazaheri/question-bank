@@ -11,6 +11,9 @@ const AddQuestion = lazy(() => import("./Components/AddQuestion/AddQuestion"));
 const EditQuestion = lazy(() =>
   import("./Components/EditQuestion/EditQuestion")
 );
+const ShowSingleQuestion = lazy(() =>
+  import("./Components/ShowSingleQuestion/ShowSIngleQuestion")
+);
 
 function App() {
   return (
@@ -45,6 +48,14 @@ function App() {
               element={
                 <Container>
                   <EditQuestion />
+                </Container>
+              }
+            />
+            <Route
+              path="question/:id"
+              element={
+                <Container>
+                  <ShowSingleQuestion />
                 </Container>
               }
             />
