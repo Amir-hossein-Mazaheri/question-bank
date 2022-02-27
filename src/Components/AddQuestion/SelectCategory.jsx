@@ -64,8 +64,8 @@ function SelectCategory() {
             className="min-w-[10rem]"
             onChange={(value) => applySelectValue(value, "subject")}
           >
-            <Option value="jack">ریاضی</Option>
-            <Option value="lucy">فیزیک</Option>
+            <Option value={1}>ریاضی</Option>
+            <Option value={2}>فیزیک</Option>
           </Select>
         </div>
       </div>

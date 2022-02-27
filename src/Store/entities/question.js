@@ -11,6 +11,7 @@ const question = createSlice({
     },
     question: {
       hardness: "", // 1 for easy 2 for medium 3 for hard
+      title: "",
       body: "",
       set: ["", "", "", ""],
       answer: "",
