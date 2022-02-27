@@ -2,6 +2,8 @@ import { message } from "antd";
 import axios from "axios";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import Btn from "../Common/Btn";
 import CancelButton from "../Common/CancelButton";
 
@@ -34,7 +36,7 @@ function Submit() {
     const postBody = {
       choices: questionProperties.set.map((choice, index) => ({
         text: choice,
-        is_correct: questionProperties.answer === index + 1 ? true : false,
+        is_correct: questionProperties.answer == index + 1 ? true : false,
       })),
       description: questionProperties.title,
       image: null,
@@ -42,7 +44,7 @@ function Submit() {
       randomize: questionProperties.randomize,
       subject: categories.subject,
     };
-    const res = await axios.patch(
+    const res = await axios.post(
       "http://192.168.43.66:8000/questions/",
       postBody
     );
@@ -54,7 +56,9 @@ function Submit() {
   return (
     <div className="fixed bottom-5 left-5">
       <div className="flex gap-5 text-white">
-        <CancelButton />
+        <Link to="/">
+          <Btn className="bg-red-500 rounded-full px-8">لغو</Btn>
+        </Link>
         <Btn onClick={sendData} className="bg-green-500 rounded-full px-8">
           ثبت
         </Btn>
