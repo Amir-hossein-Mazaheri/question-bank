@@ -7,6 +7,7 @@ import axios from "axios";
 import "antd/dist/antd.css";
 
 import "./index.css";
+import "./App.css";
 
 axios.defaults.baseURL = "http://51.89.109.247:8000";
 

@@ -1,7 +1,8 @@
 import { Checkbox, Radio, Select } from "antd";
+// import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
 
-// import { InlineEditor } from "@ckeditor/ckeditor5-editor-inline";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +10,6 @@ import {
   SET_QUESTION_Property,
   SET_QUESTION_SET,
 } from "../../Store/entities/question";
-import { ClassicEditor } from "@ckeditor/ckeditor5-build-classic";
 
 const { Option } = Select;
 
@@ -46,83 +46,50 @@ function QuestionBody() {
 
       <div className="mt-5 space-y-5">
         <CKEditor
-          editor={ClassicEditor}
+          editor={Editor}
           data={questionProperties.title || "<p>صورت سوال</p>"}
           onChange={(event, editor) => {
             const data = editor.getData();
             dispatch(SET_QUESTION_Property({ type: "title", data }));
           }}
-          config={{
-            language: "fa",
-          }}
         />
       </div>
 
       <div className="mt-8">
-        <div className="flex gap-7 items-center">
-          <span className="grow">گزینه ها : </span>
-          <div className="flex gap-5 flex-wrap items-center grow">
-            <CKEditor
-              editor={ClassicEditor}
-              data={questionProperties.set[0] || "<p>گزینه اول</p>"}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                dispatch(SET_QUESTION_SET({ item: 0, data }));
-              }}
-              config={{
-                language: "fa",
-              }}
-            />
-            <CKEditor
-              editor={ClassicEditor}
-              data={questionProperties.set[1] || "<p>گزینه دوم</p>"}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                dispatch(SET_QUESTION_SET({ item: 1, data }));
-              }}
-              config={{
-                language: "fa",
-              }}
-            />
-            <CKEditor
-              editor={ClassicEditor}
-              data={questionProperties.set[2] || "<p>گزینه سوم</p>"}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                dispatch(SET_QUESTION_SET({ item: 2, data }));
-              }}
-              config={{
-                language: "fa",
-              }}
-            />
-            <CKEditor
-              editor={ClassicEditor}
-              data={questionProperties.set[3] || "<p>گزینه چهارم</p>"}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                dispatch(SET_QUESTION_SET({ item: 3, data }));
-              }}
-              config={{
-                language: "fa",
-              }}
-            />
-            {/* <CKEditor editor={InlineEditor} /> */}
+        <div className="space-y-4">
+          <p>
+            <span className="grow">گزینه ها : </span>
+          </p>
+          <div className="grid grid-cols-2 gap-5 flex-wrap items-center grow">
+            {[1, 2, 3, 4].map((choice, index) => (
+              <div className="space-y-2">
+                <label htmlFor="">
+                  <span>گزینه</span> <span>{index + 1}</span>
+                </label>
+                <CKEditor
+                  key={choice}
+                  editor={Editor}
+                  data={questionProperties.set[index]}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    dispatch(SET_QUESTION_SET({ item: index, data }));
+                  }}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="mt-8 space-y-5">
-        <span>پاسخ تشریحی : </span>
+        <h1>پاسخ تشریحی : </h1>
         <div>
           <CKEditor
-            editor={ClassicEditor}
-            data={questionProperties.fullAnswer || "<p>پاسخ کامل سوال...</p>"}
+            editor={Editor}
+            data={questionProperties.fullAnswer}
             onChange={(event, editor) => {
               const data = editor.getData();
               dispatch(SET_QUESTION_Property({ type: "fullAnswer", data }));
-            }}
-            config={{
-              language: "fa",
             }}
           />
         </div>
