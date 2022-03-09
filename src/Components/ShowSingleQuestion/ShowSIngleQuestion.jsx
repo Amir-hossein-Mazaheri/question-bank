@@ -17,40 +17,40 @@ function ShowSingleQuestion() {
   const dispatch = useDispatch();
   const { id } = params;
 
-  const setQuestionData = useCallback(
-    (question) => {
-      dispatch(SET_ROUTE_BY_BUTTON({ value: true }));
-      dispatch(
-        SET_QUESTION_Property({ type: "hardness", data: question.level })
-      );
-      dispatch(
-        SET_QUESTION_Property({ type: "title", data: question.description })
-      );
-      dispatch(SET_QUESTION_Property({ type: "set", data: question.choices }));
-      dispatch(
-        SET_QUESTION_Property({
-          type: "answer",
-          data: question.choices.findIndex((answer) => answer.is_correct) + 1,
-        })
-      );
-      dispatch(
-        SET_QUESTION_Property({
-          type: "fullAnswer",
-          data: question.complete_answer,
-        })
-      );
-      dispatch(
-        SET_QUESTION_Property({ type: "randomize", data: question.randomize })
-      );
-      const steps = ["major", "grade", "course", "subject"];
-      for (let i = 0; i < steps.length; i++) {
-        dispatch(
-          SET_CATEGORY({ type: steps[i], value: question.categories[i] })
-        );
-      }
-    },
-    [dispatch]
-  );
+  // const setQuestionData = useCallback(
+  //   (question) => {
+  //     dispatch(SET_ROUTE_BY_BUTTON({ value: true }));
+  //     dispatch(
+  //       SET_QUESTION_Property({ type: "hardness", data: question.level })
+  //     );
+  //     dispatch(
+  //       SET_QUESTION_Property({ type: "title", data: question.description })
+  //     );
+  //     dispatch(SET_QUESTION_Property({ type: "set", data: question.choices }));
+  //     dispatch(
+  //       SET_QUESTION_Property({
+  //         type: "answer",
+  //         data: question.choices.findIndex((answer) => answer.is_correct) + 1,
+  //       })
+  //     );
+  //     dispatch(
+  //       SET_QUESTION_Property({
+  //         type: "fullAnswer",
+  //         data: question.complete_answer,
+  //       })
+  //     );
+  //     dispatch(
+  //       SET_QUESTION_Property({ type: "randomize", data: question.randomize })
+  //     );
+  //     const steps = ["major", "grade", "course", "subject"];
+  //     for (let i = 0; i < steps.length; i++) {
+  //       dispatch(
+  //         SET_CATEGORY({ type: steps[i], value: question.categories[i] })
+  //       );
+  //     }
+  //   },
+  //   [dispatch]
+  // );
 
   const fetcher = (url) =>
     axios(url).then((data) => ({
@@ -102,7 +102,7 @@ function ShowSingleQuestion() {
               </div>
             </Link>
             <Link
-              onClick={setQuestionData(question)}
+              // onClick={setQuestionData(question)}
               to={`/edit-question/${id}`}
             >
               <div className="bg-green-500 text-white cursor-pointer px-3 py-1 rounded-md">

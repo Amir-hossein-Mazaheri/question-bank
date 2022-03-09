@@ -27,6 +27,8 @@ function QuestionBody() {
     (store) => store.entities.question.question
   );
 
+  console.log(questionProperties);
+
   return (
     <div className="rounded-lg shadow-lg shadow-gray-200 mt-8 px-7 py-5 question-body">
       <div className="flex gap-5 items-center">
@@ -107,11 +109,12 @@ function QuestionBody() {
               })
             );
           }}
+          value={questionProperties.answer || null}
         >
-          <Radio.Button value="1">گزینه اول</Radio.Button>
-          <Radio.Button value="2">گزینه دوم</Radio.Button>
-          <Radio.Button value="3">گزینه سوم</Radio.Button>
-          <Radio.Button value="4">گزینه چهارم</Radio.Button>
+          <Radio.Button value={1}>گزینه اول</Radio.Button>
+          <Radio.Button value={2}>گزینه دوم</Radio.Button>
+          <Radio.Button value={3}>گزینه سوم</Radio.Button>
+          <Radio.Button value={4}>گزینه چهارم</Radio.Button>
         </Radio.Group>
 
         <div>

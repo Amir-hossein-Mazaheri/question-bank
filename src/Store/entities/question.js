@@ -13,27 +13,13 @@ const initialQuestion = {
   set: ["", "", "", ""],
   answer: "",
   fullAnswer: "",
-  randomize: true,
 };
 
 const question = createSlice({
   name: "question",
   initialState: {
-    questionCategories: {
-      major: "",
-      grade: "",
-      course: "",
-      subject: "",
-    },
-    question: {
-      hardness: "", // 1 for easy 2 for medium 3 for hard
-      title: "",
-      body: "",
-      set: ["", "", "", ""],
-      answer: "",
-      fullAnswer: "",
-      randomize: true,
-    },
+    questionCategories: initialCategories,
+    question: initialQuestion,
   },
   reducers: {
     SET_CATEGORY: (store, action) => {
