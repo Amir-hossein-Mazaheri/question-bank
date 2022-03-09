@@ -63,10 +63,7 @@ function ShowSingleQuestion() {
       ],
     }));
 
-  const { data: question } = useSWR(
-    `http://192.168.43.66:8080/questions/${id}/`,
-    fetcher
-  );
+  const { data: question } = useSWR(`/${id}/`, fetcher);
 
   if (!question) {
     return (
@@ -117,7 +114,10 @@ function ShowSingleQuestion() {
           <div>
             <ul className="flex gap-5">
               {question.categories.map((category) => (
-                <li key={category.toString()} className="px-3 py-1 rounded-md bg-sky-500 text-white">
+                <li
+                  key={category.toString()}
+                  className="px-3 py-1 rounded-md bg-sky-500 text-white"
+                >
                   {category}
                 </li>
               ))}

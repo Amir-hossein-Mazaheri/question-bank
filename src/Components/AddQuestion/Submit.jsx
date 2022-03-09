@@ -35,7 +35,7 @@ function Submit() {
     const postBody = {
       choices: questionProperties.set.map((choice, index) => ({
         text: choice,
-        is_correct: questionProperties.answer == index + 1 ? true : false,
+        is_correct: questionProperties.answer === index + 1 ? true : false,
       })),
       description: questionProperties.title,
       image: null,
@@ -44,7 +44,7 @@ function Submit() {
       subject: categories.subject,
     };
     const res = await axios.post(
-      "http://192.168.43.66:8000/questions/",
+      "/questions/",
       postBody
     );
     if (res.status === 200) {

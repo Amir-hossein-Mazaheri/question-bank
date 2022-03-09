@@ -8,7 +8,7 @@ import SortBy from "../SortBy";
 import SearchBar from "../SearchBar";
 import Btn from "./Btn";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 function Contents() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,16 +20,19 @@ function Contents() {
           page: currentPage,
         },
       })
-      .then((data) => data);
+      .then((res) => res.data);
 
-  const { data } = useSWR("http://192.168.43.66:8080/questions", fetcher);
+  const { data } = useSWR("/questions/", fetcher);
 
   console.log("data :", data);
 
-  const questions = data.results.map((d) => ({
-    ...d,
-    categories: [d.major, d.grade, d.course, d.subject],
-  }));
+  const questions = useMemo(() => {
+    if (!data) return;
+    return data.results.map((d) => ({
+      ...d,
+      categories: [d.major, d.grade, d.course, d.subject],
+    }));
+  }, [data]);
 
   if (!data) {
     return (
@@ -58,21 +61,25 @@ function Contents() {
             }}
           />
         </div>
-        <div className="space-y-8">
-          {questions.map((question) => (
-            <Question
-              key={question.id}
-              id={question.id}
-              categories={question.categories}
-              title={question.description}
-              correctAnswer={
-                question.choices.find((choice) => choice.is_correct).text
-              }
-              reports={120}
-              numberHardnessLevel={question.level}
-            />
-          ))}
-        </div>
+        {questions.length > 0 ? (
+          <div className="space-y-8">
+            {questions.map((question) => (
+              <Question
+                key={question.id}
+                id={question.id}
+                categories={question.categories}
+                title={question.description}
+                correctAnswer={
+                  question.choices.find((choice) => choice.is_correct).text
+                }
+                reports={120}
+                numberHardnessLevel={question.level}
+              />
+            ))}
+          </div>
+        ) : (
+          <p>سوالی وجود ندارد</p>
+        )}
         {}
       </Container>
     </ContentLayout>
