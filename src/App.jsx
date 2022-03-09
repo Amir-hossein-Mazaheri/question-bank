@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Container from "./Layouts/Container";
 import { Spin } from "antd";
+import NotFoundPage from "./404";
+// lazy load pages
 const AddQuestion = lazy(() => import("./Components/AddQuestion/AddQuestion"));
 const EditQuestion = lazy(() =>
   import("./Components/EditQuestion/EditQuestion")
@@ -59,6 +61,7 @@ function App() {
                 </Container>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </Router>

@@ -3,7 +3,6 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Btn from "../Common/Btn";
 import CancelButton from "../Common/CancelButton";
 
