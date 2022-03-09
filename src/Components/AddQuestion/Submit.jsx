@@ -15,21 +15,21 @@ function Submit() {
     (store) => store.entities.question.question
   );
 
-  const isCategoryEmpty = useCallback(() => {
-    return Object.values(categories).some(
-      (category) => category === "" || category.trim() === ""
-    );
-  }, [categories]);
+  // const isCategoryEmpty = useCallback(() => {
+  //   return Object.values(categories).some(
+  //     (category) => category === "" || category.trim() === ""
+  //   );
+  // }, [categories]);
 
-  const validateFormData = useCallback(() => {
-    if (isCategoryEmpty()) {
-      message.error("لطفا همه دسته بندی ها رو تکمیل کنید.");
-      console.log(isCategoryEmpty());
-      console.log(categories);
-      return;
-    }
-    console.log("ok");
-  }, [categories, isCategoryEmpty]);
+  // const validateFormData = useCallback(() => {
+  //   if (isCategoryEmpty()) {
+  //     message.error("لطفا همه دسته بندی ها رو تکمیل کنید.");
+  //     console.log(isCategoryEmpty());
+  //     console.log(categories);
+  //     return;
+  //   }
+  //   console.log("ok");
+  // }, [categories, isCategoryEmpty]);
 
   const sendData = async () => {
     const postBody = {
@@ -43,21 +43,23 @@ function Submit() {
       randomize: questionProperties.randomize,
       subject: categories.subject,
     };
-    const res = await axios.post(
-      "/questions/",
-      postBody
-    );
-    if (res.status === 200) {
+    console.log(postBody);
+    try {
+      await axios.post("/questions/", postBody);
       message.success("سوال یا موفقیت افزوده شد.");
+    } catch (error) {
+      console.log(error);
+      message.error("یکی از فیلد ها خالی می باشد");
     }
   };
 
   return (
     <div className="fixed bottom-5 left-5">
       <div className="flex gap-5 text-white">
-        <Link to="/">
+        {/* <Link to="/">
           <Btn className="bg-red-500 rounded-full px-8">لغو</Btn>
-        </Link>
+        </Link> */}
+        <CancelButton />
         <Btn onClick={sendData} className="bg-green-500 rounded-full px-8">
           ثبت
         </Btn>

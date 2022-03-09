@@ -63,7 +63,7 @@ function ShowSingleQuestion() {
       ],
     }));
 
-  const { data: question } = useSWR(`/${id}/`, fetcher);
+  const { data: question } = useSWR(`/questions/${id}/`, fetcher);
 
   if (!question) {
     return (

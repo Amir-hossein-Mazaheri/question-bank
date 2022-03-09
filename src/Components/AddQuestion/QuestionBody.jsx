@@ -61,7 +61,7 @@ function QuestionBody() {
           <h6 className="grow">گزینه ها : </h6>
           <div className="grid grid-cols-2 gap-5 flex-wrap items-center grow">
             {[1, 2, 3, 4].map((choice, index) => (
-              <div className="space-y-2">
+              <div key={choice} className="space-y-2">
                 <label htmlFor="">
                   <span>گزینه</span> <span>{index + 1}</span>
                 </label>
@@ -103,7 +103,7 @@ function QuestionBody() {
             dispatch(
               SET_QUESTION_Property({
                 type: "answer",
-                data: event.target.value,
+                data: Number(event.target.value),
               })
             );
           }}

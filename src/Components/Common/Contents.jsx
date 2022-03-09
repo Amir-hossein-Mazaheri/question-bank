@@ -70,7 +70,7 @@ function Contents() {
                 categories={question.categories}
                 title={question.description}
                 correctAnswer={
-                  question.choices.find((choice) => choice.is_correct).text
+                  question.choices.find((choice) => choice.is_correct)?.text
                 }
                 reports={120}
                 numberHardnessLevel={question.level}
