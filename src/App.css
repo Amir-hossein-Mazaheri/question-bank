@@ -2,3 +2,25 @@
   border: 1px solid rgba(204, 204, 204, 0.63) !important;
   border-radius: 5px !important;
 }
+
+.question-body h1 {
+  @apply text-6xl;
+}
+.question-body h2 {
+  @apply text-5xl;
+}
+.question-body h3 {
+  @apply text-4xl;
+}
+.question-body h3 {
+  @apply text-3xl;
+}
+.question-body h3 {
+  @apply text-2xl;
+}
+.question-body h3 {
+  @apply text-xl;
+}
+.question-body a {
+  @apply text-blue-600 underline;
+}
