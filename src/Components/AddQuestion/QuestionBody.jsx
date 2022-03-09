@@ -45,9 +45,10 @@ function QuestionBody() {
       </div>
 
       <div className="mt-5 space-y-5">
+        <h6>صورت سوال : </h6>
         <CKEditor
           editor={Editor}
-          data={questionProperties.title || "<p>صورت سوال</p>"}
+          data={questionProperties.title}
           onChange={(event, editor) => {
             const data = editor.getData();
             dispatch(SET_QUESTION_Property({ type: "title", data }));
@@ -57,9 +58,7 @@ function QuestionBody() {
 
       <div className="mt-8">
         <div className="space-y-4">
-          <p>
-            <span className="grow">گزینه ها : </span>
-          </p>
+          <h6 className="grow">گزینه ها : </h6>
           <div className="grid grid-cols-2 gap-5 flex-wrap items-center grow">
             {[1, 2, 3, 4].map((choice, index) => (
               <div className="space-y-2">
@@ -82,7 +81,7 @@ function QuestionBody() {
       </div>
 
       <div className="mt-8 space-y-5">
-        <h1>پاسخ تشریحی : </h1>
+        <h6>پاسخ تشریحی : </h6>
         <div>
           <CKEditor
             editor={Editor}
@@ -96,7 +95,7 @@ function QuestionBody() {
       </div>
 
       <div className="mt-8 flex gap-3 items-center">
-        <span>گزینه صحیح : </span>
+        <h6>گزینه صحیح : </h6>
         <Radio.Group
           buttonStyle="solid"
           className="grow"

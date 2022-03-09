@@ -4,22 +4,22 @@
 }
 
 .question-body h1 {
-  @apply text-6xl;
+  @apply text-6xl font-medium;
 }
 .question-body h2 {
-  @apply text-5xl;
+  @apply text-5xl font-medium;
 }
 .question-body h3 {
-  @apply text-4xl;
+  @apply text-4xl font-medium;
 }
-.question-body h3 {
-  @apply text-3xl;
+.question-body h4 {
+  @apply text-3xl font-medium;
 }
-.question-body h3 {
-  @apply text-2xl;
+.question-body h5 {
+  @apply text-2xl font-medium;
 }
-.question-body h3 {
-  @apply text-xl;
+.question-body h6 {
+  @apply text-xl font-medium;
 }
 .question-body a {
   @apply text-blue-600 underline;
