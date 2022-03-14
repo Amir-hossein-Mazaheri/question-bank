@@ -20,7 +20,7 @@ const ShowSingleQuestion = lazy(() =>
 function App() {
   return (
     <Provider store={Store}>
-      <Router>
+      <Router basename={"/question-bank"}>
         <Suspense
           fallback={
             <div className="absolute inset-0">
@@ -31,37 +31,39 @@ function App() {
           }
         >
           <Routes>
-            <Route
-              index
-              element={
-                <MainLayout sidebar={<Sidebar />} content={<Contents />} />
-              }
-            />
-            <Route
-              path="add-question"
-              element={
-                <Container>
-                  <AddQuestion />
-                </Container>
-              }
-            />
-            <Route
-              path="edit-question/:id"
-              element={
-                <Container>
-                  <EditQuestion />
-                </Container>
-              }
-            />
-            <Route
-              path="question/:id"
-              element={
-                <Container>
-                  <ShowSingleQuestion />
-                </Container>
-              }
-            />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path={`${process.env.PUBLIC_URL}/`} >
+              <Route
+                index
+                element={
+                  <MainLayout sidebar={<Sidebar />} content={<Contents />} />
+                }
+              />
+              <Route
+                path="add-question"
+                element={
+                  <Container>
+                    <AddQuestion />
+                  </Container>
+                }
+              />
+              <Route
+                path="edit-question/:id"
+                element={
+                  <Container>
+                    <EditQuestion />
+                  </Container>
+                }
+              />
+              <Route
+                path="question/:id"
+                element={
+                  <Container>
+                    <ShowSingleQuestion />
+                  </Container>
+                }
+              />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
           </Routes>
         </Suspense>
       </Router>
