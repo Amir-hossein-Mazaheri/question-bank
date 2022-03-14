@@ -40,12 +40,11 @@ function Edit({ questionId }) {
     );
     console.log(choicesBackEndGeneratedData);
     const postBody = {
-      // choices: questionProperties.set.map((choice, index) => ({
-      //   id: choicesBackEndGeneratedData[index],
-      //   text: choice,
-      //   is_correct: questionProperties.answer === index + 1 ? true : false,
-      //   question: Number(questionId),
-      // })),
+      choices: questionProperties.set.map((choice, index) => ({
+        id: choicesBackEndGeneratedData[index],
+        text: choice,
+        is_correct: questionProperties.answer === index + 1 ? true : false,
+      })),
       description: questionProperties.title,
       image: null,
       complete_answer: questionProperties.fullAnswer,
