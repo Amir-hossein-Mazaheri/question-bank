@@ -27,8 +27,6 @@ function QuestionBody() {
     (store) => store.entities.question.question
   );
 
-  console.log(questionProperties);
-
   return (
     <div className="rounded-lg shadow-lg shadow-gray-200 mt-8 px-7 py-5 question-body">
       <div className="flex gap-5 items-center">

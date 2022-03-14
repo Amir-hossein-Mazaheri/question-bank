@@ -1,14 +1,22 @@
-import { Select } from "antd";
-import { useCallback } from "react";
+import { Select, Spin } from "antd";
+import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useSWR from "swr";
+import fetcher from "../../Helpers/fetcher";
+import Container from "../../Layouts/Container";
 import { SET_CATEGORY } from "../../Store/entities/question";
 
 const { Option } = Select;
 
 function SelectCategory() {
+  const [majorIndex, setMajorIndex] = useState(0);
+  const [gradeIndex, setGradeIndex] = useState(0);
+  const [courseIndex, setCourseIndex] = useState(0);
   const { major, grade, course } = useSelector(
     (store) => store.entities.question.questionCategories
   );
+
+  const { data: categories } = useSWR(`/majors/`, fetcher);
 
   const dispatch = useDispatch();
 
@@ -19,19 +27,36 @@ function SelectCategory() {
     [dispatch]
   );
 
+  if (!categories) {
+    return (
+      <Container className="relative h-screen">
+        <Spin className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+      </Container>
+    );
+  }
+
+  console.log(categories);
+
   return (
     <div className="flex gap-7 items-center">
       <h2 className="font-medium text-lg">انتخاب دسته بندی سوال : </h2>
       <div className="flex gap-5 items-center">
         <div>
           <Select
-            defaultValue="رشته تحصیلی"
+            defaultValue={"رشته تحصیلی"}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, "major")}
+            onChange={(value) => {
+              const [id, index] = value.split("-");
+              console.log(id, index);
+              applySelectValue(Number(id), "major");
+              setMajorIndex(Number(index));
+            }}
           >
-            <Option value="tajrobi">تجربی</Option>
-            <Option value="riazi">ریاضی</Option>
-            <Option value="ensani">انسانی</Option>
+            {categories.map(({ name, id }, index) => (
+              <Option ket={name} value={`${id}-${index}`}>
+                <span>{name}</span>
+              </Option>
+            ))}
           </Select>
         </div>
         <div>
@@ -39,11 +64,19 @@ function SelectCategory() {
             defaultValue="پایه تحصیلی"
             disabled={major ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, "grade")}
+            onChange={(value) => {
+              const [id, index] = value.split("-");
+              console.log(id, index);
+              applySelectValue(Number(id), "grade");
+              setGradeIndex(Number(index));
+            }}
           >
-            <Option value="10">دهم</Option>
-            <Option value="11">یازدهم</Option>
-            <Option value="12">دوازدهم</Option>
+            {major &&
+              categories[majorIndex].grades.map(({ name, id }, index) => (
+                <Option ket={name} value={`${id}-${index}`}>
+                  <span>{name}</span>
+                </Option>
+              ))}
           </Select>
         </div>
         <div>
@@ -51,10 +84,21 @@ function SelectCategory() {
             defaultValue="نام درس"
             disabled={major && grade ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, "course")}
+            onChange={(value) => {
+              const [id, index] = value.split("-");
+              console.log(id, index);
+              applySelectValue(Number(id), "course");
+              setCourseIndex(Number(index));
+            }}
           >
-            <Option value="jack">ریاضی</Option>
-            <Option value="lucy">فیزیک</Option>
+            {grade &&
+              categories[majorIndex].grades[gradeIndex].courses.map(
+                ({ name, id }, index) => (
+                  <Option ket={name} value={`${id}-${index}`}>
+                    <span>{name}</span>
+                  </Option>
+                )
+              )}
           </Select>
         </div>
         <div>
@@ -62,10 +106,20 @@ function SelectCategory() {
             defaultValue="مبحث درسی"
             disabled={major && grade && course ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => applySelectValue(value, "subject")}
+            onChange={(value) => {
+              const [id, index] = value.split("-");
+              console.log(id, index);
+              applySelectValue(Number(id), "subject");
+            }}
           >
-            <Option value={1}>ریاضی</Option>
-            <Option value={2}>فیزیک</Option>
+            {course &&
+              categories[majorIndex].grades[gradeIndex].courses[
+                courseIndex
+              ].subjects.map(({ name, id }, index) => (
+                <Option ket={name} value={`${id}-${index}`}>
+                  <span>{name}</span>
+                </Option>
+              ))}
           </Select>
         </div>
       </div>
