@@ -43,7 +43,7 @@ function SelectCategory() {
       <div className="flex gap-5 items-center">
         <div>
           <Select
-            defaultValue={"رشته تحصیلی"}
+            defaultValue={major || "رشته تحصیلی"}
             className="min-w-[10rem]"
             onChange={(value) => {
               const [id, index] = value.split("-");
