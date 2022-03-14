@@ -12,7 +12,7 @@ function SelectCategory() {
   const [majorIndex, setMajorIndex] = useState(0);
   const [gradeIndex, setGradeIndex] = useState(0);
   const [courseIndex, setCourseIndex] = useState(0);
-  const { major, grade, course } = useSelector(
+  const { major, grade, course, subject } = useSelector(
     (store) => store.entities.question.questionCategories
   );
 
@@ -61,7 +61,7 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            value="پایه تحصیلی"
+            value={grade || "پایه تحصیلی"}
             disabled={major ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
@@ -81,7 +81,7 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            value="نام درس"
+            value={course || "نام درس"}
             disabled={major && grade ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
@@ -103,7 +103,7 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            value="مبحث درسی"
+            value={subject || "مبحث درسی"}
             disabled={major && grade && course ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
