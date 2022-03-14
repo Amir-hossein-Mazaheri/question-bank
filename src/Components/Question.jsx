@@ -38,7 +38,7 @@ function Question({
         </div>
         <ul className="flex gap-5">
           {categories.map((category) => (
-            <li key={category.toString()} className={categoriesStyle}>
+            <li key={category} className={categoriesStyle}>
               {category}
             </li>
           ))}

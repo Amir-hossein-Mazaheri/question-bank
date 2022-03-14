@@ -3,54 +3,11 @@ import { useParams } from "react-router";
 import Container from "../../Layouts/Container";
 import useSWR from "swr";
 import { Spin } from "antd";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import {
-  SET_CATEGORY,
-  SET_QUESTION_Property,
-  SET_ROUTE_BY_BUTTON,
-} from "../../Store/entities/question";
 import { Link } from "react-router-dom";
 
 function ShowSingleQuestion() {
   const params = useParams();
-  const dispatch = useDispatch();
   const { id } = params;
-
-  // const setQuestionData = useCallback(
-  //   (question) => {
-  //     dispatch(SET_ROUTE_BY_BUTTON({ value: true }));
-  //     dispatch(
-  //       SET_QUESTION_Property({ type: "hardness", data: question.level })
-  //     );
-  //     dispatch(
-  //       SET_QUESTION_Property({ type: "title", data: question.description })
-  //     );
-  //     dispatch(SET_QUESTION_Property({ type: "set", data: question.choices }));
-  //     dispatch(
-  //       SET_QUESTION_Property({
-  //         type: "answer",
-  //         data: question.choices.findIndex((answer) => answer.is_correct) + 1,
-  //       })
-  //     );
-  //     dispatch(
-  //       SET_QUESTION_Property({
-  //         type: "fullAnswer",
-  //         data: question.complete_answer,
-  //       })
-  //     );
-  //     dispatch(
-  //       SET_QUESTION_Property({ type: "randomize", data: question.randomize })
-  //     );
-  //     const steps = ["major", "grade", "course", "subject"];
-  //     for (let i = 0; i < steps.length; i++) {
-  //       dispatch(
-  //         SET_CATEGORY({ type: steps[i], value: question.categories[i] })
-  //       );
-  //     }
-  //   },
-  //   [dispatch]
-  // );
 
   const fetcher = (url) =>
     axios(url).then((data) => ({

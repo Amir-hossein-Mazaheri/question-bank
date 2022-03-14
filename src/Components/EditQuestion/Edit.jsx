@@ -1,53 +1,63 @@
 import { message } from "antd";
 import axios from "axios";
-import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import CancelButton from "../Common/CancelButton";
 import Btn from "../Common/Btn";
 
-function Edit() {
+function Edit({ questionId }) {
   const categories = useSelector(
     (store) => store.entities.question.questionCategories
   );
+
+  console.log(categories)
 
   const questionProperties = useSelector(
     (store) => store.entities.question.question
   );
 
-  const isCategoryEmpty = useCallback(() => {
-    return Object.values(categories).some(
-      (category) => category === "" || category.trim() === ""
-    );
-  }, [categories]);
+  // const isCategoryEmpty = useCallback(() => {
+  //   return Object.values(categories).some(
+  //     (category) => category === "" || category.trim() === ""
+  //   );
+  // }, [categories]);
 
-  const validateFormData = useCallback(() => {
-    if (isCategoryEmpty()) {
-      message.error("لطفا همه دسته بندی ها رو تکمیل کنید.");
-      console.log(isCategoryEmpty());
-      console.log(categories);
-      return;
-    }
-    console.log("ok");
-  }, [categories, isCategoryEmpty]);
+  // const validateFormData = useCallback(() => {
+  //   if (isCategoryEmpty()) {
+  //     message.error("لطفا همه دسته بندی ها رو تکمیل کنید.");
+  //     console.log(isCategoryEmpty());
+  //     console.log(categories);
+  //     return;
+  //   }
+  //   console.log("ok");
+  // }, [categories, isCategoryEmpty]);
 
   const sendData = async () => {
+    const res = await axios.get(`/questions/${questionId}`);
+    const choicesBackEndGeneratedData = res.data.choices.map(
+      (choice) => choice.id
+    );
+    console.log(choicesBackEndGeneratedData);
     const postBody = {
-      choices: questionProperties.set.map((choice, index) => ({
-        text: choice,
-        is_correct: questionProperties.answer === index + 1 ? true : false,
-      })),
+      // choices: questionProperties.set.map((choice, index) => ({
+      //   id: choicesBackEndGeneratedData[index],
+      //   text: choice,
+      //   is_correct: questionProperties.answer === index + 1 ? true : false,
+      //   question: Number(questionId),
+      // })),
       description: questionProperties.title,
       image: null,
+      complete_answer: questionProperties.fullAnswer,
       level: questionProperties.hardness,
       randomize: questionProperties.randomize,
-      subject: categories.subject,
+      // subject: categories.subject,
     };
-    const res = await axios.post(
-      "/questions/",
-      postBody
-    );
-    if (res.status === 200) {
+    console.log(postBody);
+    try {
+      await axios.patch(`/questions/${questionId}/`, postBody);
       message.success("سوال یا موفقیت افزوده شد.");
+    } catch (error) {
+      console.log(error.response);
+      message.error("یکی از فیلد ها خالی می باشد");
     }
   };
 

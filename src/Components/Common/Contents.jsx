@@ -1,47 +1,12 @@
-import axios from "axios";
-import { Spin } from "antd";
-import useSWR from "swr";
 import ContentLayout from "../../Layouts/ContentsLayout";
-import Question from "../Question";
 import Container from "../../Layouts/Container";
 import SortBy from "../SortBy";
 import SearchBar from "../SearchBar";
 import Btn from "./Btn";
 import { Link } from "react-router-dom";
-import { useMemo, useState } from "react";
+import Questions from "./Questions";
 
 function Contents() {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const fetcher = (url) =>
-    axios
-      .get(url, {
-        params: {
-          page: currentPage,
-        },
-      })
-      .then((res) => res.data);
-
-  const { data } = useSWR("/questions/", fetcher);
-
-  console.log("data :", data);
-
-  const questions = useMemo(() => {
-    if (!data) return;
-    return data.results.map((d) => ({
-      ...d,
-      categories: [d.major, d.grade, d.course, d.subject],
-    }));
-  }, [data]);
-
-  if (!data) {
-    return (
-      <Container className="relative h-screen">
-        <Spin className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-      </Container>
-    );
-  }
-
   return (
     <ContentLayout>
       <Container>
@@ -61,26 +26,7 @@ function Contents() {
             }}
           />
         </div>
-        {questions.length > 0 ? (
-          <div className="space-y-8">
-            {questions.map((question) => (
-              <Question
-                key={question.id}
-                id={question.id}
-                categories={question.categories}
-                title={question.description}
-                correctAnswer={
-                  question.choices.find((choice) => choice.is_correct)?.text
-                }
-                reports={120}
-                numberHardnessLevel={question.level}
-              />
-            ))}
-          </div>
-        ) : (
-          <p>سوالی وجود ندارد</p>
-        )}
-        {}
+        <Questions />
       </Container>
     </ContentLayout>
   );
