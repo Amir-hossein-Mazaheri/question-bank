@@ -43,7 +43,7 @@ function SelectCategory() {
       <div className="flex gap-5 items-center">
         <div>
           <Select
-            defaultValue={major || "رشته تحصیلی"}
+            value={major || "رشته تحصیلی"}
             className="min-w-[10rem]"
             onChange={(value) => {
               const [id, index] = value.split("-");
@@ -61,7 +61,7 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            defaultValue="پایه تحصیلی"
+            value="پایه تحصیلی"
             disabled={major ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
@@ -81,7 +81,7 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            defaultValue="نام درس"
+            value="نام درس"
             disabled={major && grade ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
@@ -103,7 +103,7 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            defaultValue="مبحث درسی"
+            value="مبحث درسی"
             disabled={major && grade && course ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {

@@ -1,8 +1,7 @@
-import { message } from "antd";
 import axios from "axios";
 import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
 import {
   SET_CATEGORY,
   SET_QUESTION_Property,
@@ -15,7 +14,6 @@ import Edit from "./Edit";
 function EditQuestion() {
   const dispatch = useDispatch();
   const params = useParams();
-  const navigate = useNavigate();
   const { id } = params;
 
   const setQuestionData = useCallback(

@@ -33,7 +33,7 @@ function QuestionBody() {
         <span>انتخاب دشواری : </span>
         <div>
           <Select
-            defaultValue="دشواری"
+            value={questionProperties.hardness || "دشواری"}
             className="min-w-[10rem]"
             onChange={applyHardness}
           >

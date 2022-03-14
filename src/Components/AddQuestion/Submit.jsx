@@ -2,9 +2,11 @@ import { message } from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Btn from "../Common/Btn";
+import { useNavigate } from "react-router";
 import CancelButton from "../Common/CancelButton";
 
 function Submit() {
+  const navigate = useNavigate();
   const categories = useSelector(
     (store) => store.entities.question.questionCategories
   );
@@ -45,6 +47,7 @@ function Submit() {
     try {
       await axios.post("/questions/", postBody);
       message.success("سوال یا موفقیت افزوده شد.");
+      navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
       message.error("یکی از فیلد ها خالی می باشد");

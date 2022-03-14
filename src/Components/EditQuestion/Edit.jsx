@@ -3,13 +3,15 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import CancelButton from "../Common/CancelButton";
 import Btn from "../Common/Btn";
+import { useNavigate } from "react-router";
 
 function Edit({ questionId }) {
+  const navigate = useNavigate();
   const categories = useSelector(
     (store) => store.entities.question.questionCategories
   );
 
-  console.log(categories)
+  console.log(categories);
 
   const questionProperties = useSelector(
     (store) => store.entities.question.question
@@ -54,7 +56,8 @@ function Edit({ questionId }) {
     console.log(postBody);
     try {
       await axios.patch(`/questions/${questionId}/`, postBody);
-      message.success("سوال یا موفقیت افزوده شد.");
+      message.success("سوال یا موفقیت ویرایش شد.");
+      navigate("/", { replace: true });
     } catch (error) {
       console.log(error.response);
       message.error("یکی از فیلد ها خالی می باشد");
