@@ -20,7 +20,7 @@ const ShowSingleQuestion = lazy(() =>
 function App() {
   return (
     <Provider store={Store}>
-      <Router basename={"/question-bank"}>
+      <Router basename={"question-bank"}>
         <Suspense
           fallback={
             <div className="absolute inset-0">
@@ -31,7 +31,7 @@ function App() {
           }
         >
           <Routes>
-            <Route path={`${process.env.PUBLIC_URL}/`} >
+            <Route>
               <Route
                 index
                 element={
