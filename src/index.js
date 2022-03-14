@@ -9,7 +9,7 @@ import "antd/dist/antd.css";
 import "./index.css";
 import "./App.css";
 
-axios.defaults.baseURL = "http://51.89.109.247:8000";
+axios.defaults.baseURL = "http://lapluse.ir/examapi";
 
 ReactDOM.render(
   <StrictMode>
