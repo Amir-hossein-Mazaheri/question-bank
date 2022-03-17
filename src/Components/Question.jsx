@@ -1,4 +1,6 @@
 import { useCallback } from "react";
+
+import axios from "axios";
 import { Link } from "react-router-dom";
 import convertHardness from "../Helpers/convertHardness";
 import Btn from "./Common/Btn";
@@ -12,7 +14,10 @@ function Question({
   numberHardnessLevel,
 }) {
   const deleteQuestion = useCallback(() => {
-    console.log(id);
+    axios
+      .delete(`/questions/${id}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.response));
   }, [id]);
 
   const categoriesStyle = "px-3 py-1 bg-blue-500 text-white rounded-md";

@@ -16,7 +16,7 @@ function HardnessFilter() {
   );
 
   const hardnessLevels = {
-    همه: "all",
+    همه: "",
     سخت: "3",
     متوسط: "2",
     آسان: "1",

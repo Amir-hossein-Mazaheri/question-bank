@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const filters = createSlice({
   name: "filters",
   initialState: {
-    subject: [],
-    hardness: "all", // all for no filter 1 for easy 2 for medium 3 for hard
+    subject: "",
+    hardness: "", // all for no filter 1 for easy 2 for medium 3 for hard
     searchQuery: "",
-    filteredQuestions: [],
+    urlParams: {},
+    forceToUpdate: "",
   },
   reducers: {
     SET_HARDNESS: (store, action) => {
@@ -18,8 +19,11 @@ const filters = createSlice({
     SET_SEARCH_QUERY: (store, action) => {
       store.searchQuery = action.payload.query;
     },
-    SET_FILTERED_QUESTIONS: (store, action) => {
-      store.filteredQuestions = action.payload.questions;
+    SET_URL_PARAMS: (store, action) => {
+      store.urlParams = action.payload.params;
+    },
+    FORCE_TO_UPDATE: (store) => {
+      store.forceToUpdate = new Date().toISOString();
     },
   },
 });
@@ -31,5 +35,6 @@ export const {
   SET_HARDNESS,
   SET_SUBJECT,
   SET_SEARCH_QUERY,
-  SET_FILTERED_QUESTIONS,
+  SET_URL_PARAMS,
+  FORCE_TO_UPDATE,
 } = filters.actions;

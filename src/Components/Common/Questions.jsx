@@ -1,23 +1,42 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Spin } from "antd";
 import useSWRInfinite from "swr/infinite";
 import Container from "../../Layouts/Container";
 import Question from "../Question";
 import Btn from "./Btn";
-import fetcher from "../../Helpers/fetcher";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function Questions() {
+  const { forceToUpdate, urlParams } = useSelector(
+    (store) => store.entities.filters
+  );
   const getKey = useCallback((pageIndex, previousPageData) => {
     if (previousPageData && !previousPageData.length) return null;
     return `/questions?page=${pageIndex + 1}`;
   }, []);
 
+  const fetcher = (url) =>
+    axios
+      .get(url, {
+        params: urlParams,
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => console.log(err.response));
+
   const {
     data: questionsData,
     size,
     setSize,
+    mutate,
   } = useSWRInfinite(getKey, fetcher);
+
+  useEffect(() => {
+    mutate();
+  }, [mutate, urlParams]);
 
   if (!questionsData) {
     return (
@@ -27,8 +46,11 @@ function Questions() {
     );
   }
 
+  console.log(urlParams);
+
   return (
     <div>
+      <span className="hidden">{forceToUpdate}</span>
       {questionsData.map(({ results: questions }, index) => (
         <div key={index} className="space-y-8">
           {questions.map((question) => (

@@ -8,7 +8,7 @@ function TextEditor({ className, ...others }) {
         editor={Editor}
         config={{
           ckfinder: {
-            uploadUrl: "/upload",
+            uploadUrl: "/ckeditor",
           },
         }}
         {...others}
