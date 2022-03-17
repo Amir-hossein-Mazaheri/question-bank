@@ -14,13 +14,6 @@ const { Option } = Select;
 function QuestionBody() {
   const dispatch = useDispatch();
 
-  const applyHardness = useCallback(
-    (value) => {
-      dispatch(SET_QUESTION_HARDNESS({ hardness: value }));
-    },
-    [dispatch]
-  );
-
   const questionProperties = useSelector(
     (store) => store.entities.question.question
   );
@@ -33,7 +26,9 @@ function QuestionBody() {
           <Select
             value={questionProperties.hardness || "دشواری"}
             className="min-w-[10rem]"
-            onChange={applyHardness}
+            onChange={(value) =>
+              dispatch(SET_QUESTION_HARDNESS({ hardness: value }))
+            }
           >
             <Option value={3}>سخت</Option>
             <Option value={2}>متوسط</Option>
