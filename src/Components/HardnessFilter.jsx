@@ -39,8 +39,8 @@ function HardnessFilter() {
   }
 
   return (
-    <div className="py-3 flex gap-5 items-center">
-      <h3>دشواری :</h3>
+    <div className="py-3 flex gap-5 items-center mb-3">
+      <h3 className="text-white font-light">دشواری :</h3>
       <ul className="flex gap-3">{filterElement}</ul>
     </div>
   );
