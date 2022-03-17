@@ -1,9 +1,7 @@
-import { Checkbox, Radio, Select } from "antd";
-// import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import Editor from "ckeditor5-custom-build/build/ckeditor";
-
 import { useCallback } from "react";
+
+import { Checkbox, Radio, Select } from "antd";
+import TextEditor from "../Common/TextEditor";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SET_QUESTION_HARDNESS,
@@ -46,8 +44,7 @@ function QuestionBody() {
 
       <div className="mt-5 space-y-5">
         <h6>صورت سوال : </h6>
-        <CKEditor
-          editor={Editor}
+        <TextEditor
           data={questionProperties.title}
           onChange={(event, editor) => {
             const data = editor.getData();
@@ -65,9 +62,8 @@ function QuestionBody() {
                 <label htmlFor="">
                   <span>گزینه</span> <span>{index + 1}</span>
                 </label>
-                <CKEditor
+                <TextEditor
                   key={choice}
-                  editor={Editor}
                   data={questionProperties.set[index]}
                   onChange={(event, editor) => {
                     const data = editor.getData();
@@ -83,8 +79,7 @@ function QuestionBody() {
       <div className="mt-8 space-y-5">
         <h6>پاسخ تشریحی : </h6>
         <div>
-          <CKEditor
-            editor={Editor}
+          <TextEditor
             data={questionProperties.fullAnswer}
             onChange={(event, editor) => {
               const data = editor.getData();
