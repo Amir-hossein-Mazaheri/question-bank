@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import convertHardness from "../Helpers/convertHardness";
 
 function Question({
   id,
@@ -8,22 +9,6 @@ function Question({
   reports,
   numberHardnessLevel,
 }) {
-  let hardnessLevel;
-
-  switch (numberHardnessLevel) {
-    case 1:
-      hardnessLevel = "آسون";
-      break;
-    case 2:
-      hardnessLevel = "متوسط";
-      break;
-    case 3:
-      hardnessLevel = "سخت";
-      break;
-    default:
-      hardnessLevel = "نامشخص";
-  }
-
   const categoriesStyle = "px-3 py-1 bg-blue-500 text-white rounded-md";
 
   const commonPadding = "px-3 py-1 rounded-md";
@@ -42,7 +27,9 @@ function Question({
               {category}
             </li>
           ))}
-          <li className={categoriesStyle}>{hardnessLevel}</li>
+          <li className={categoriesStyle}>
+            {convertHardness(numberHardnessLevel)}
+          </li>
         </ul>
       </div>
       <div>

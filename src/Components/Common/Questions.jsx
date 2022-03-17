@@ -1,17 +1,13 @@
-import { Spin } from "antd";
-import axios from "axios";
 import { useCallback } from "react";
-import Container from "../../Layouts/Container";
+
+import { Spin } from "antd";
 import useSWRInfinite from "swr/infinite";
+import Container from "../../Layouts/Container";
 import Question from "../Question";
 import Btn from "./Btn";
+import fetcher from "../../Helpers/fetcher";
 
 function Questions() {
-  const fetcher = useCallback(
-    (url) => axios.get(url).then((res) => res.data),
-    []
-  );
-
   const getKey = useCallback((pageIndex, previousPageData) => {
     if (previousPageData && !previousPageData.length) return null;
     return `/questions?page=${pageIndex + 1}`;
