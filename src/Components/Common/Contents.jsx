@@ -1,6 +1,5 @@
 import ContentLayout from "../../Layouts/ContentsLayout";
 import Container from "../../Layouts/Container";
-import SortBy from "../SortBy";
 import SearchBar from "../SearchBar";
 import Btn from "./Btn";
 import { Link } from "react-router-dom";
@@ -11,7 +10,7 @@ function Contents() {
     <ContentLayout>
       <Container>
         <div className="relative after:absolute after:right-0 after:left-0 after:bottom-0 after:h-1">
-          <div className="flex gap-7 items-center">
+          <div className="flex gap-7 items-center mb-10">
             <SearchBar className="grow" />
             <Link to="/add-question">
               <Btn className="bg-indigo-600 text-white">
@@ -19,12 +18,6 @@ function Contents() {
               </Btn>
             </Link>
           </div>
-          <SortBy
-            sortTypes={{
-              همه: "all",
-              "بیشترین ریپورت": "most-reports",
-            }}
-          />
         </div>
         <Questions />
       </Container>

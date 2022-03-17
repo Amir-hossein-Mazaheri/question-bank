@@ -1,4 +1,9 @@
+import { useDispatch } from "react-redux";
+import { SET_SEARCH_QUERY } from "../Store/entities/filters";
+
 function SearchBar(props) {
+  const dispatch = useDispatch();
+
   return (
     <div {...props}>
       <form action="">
@@ -26,6 +31,9 @@ function SearchBar(props) {
             name="search-questions"
             id="search-questions"
             className="outline-none w-full bg-transparent"
+            onChange={(event) =>
+              dispatch(SET_SEARCH_QUERY({ query: event.target.value }))
+            }
           />
         </div>
       </form>
