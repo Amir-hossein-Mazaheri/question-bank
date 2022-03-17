@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const filters = createSlice({
   name: "filters",
   initialState: {
-    subject: "",
+    subject: [],
     hardness: "all", // all for no filter 1 for easy 2 for medium 3 for hard
     searchQuery: "",
     filteredQuestions: [],
