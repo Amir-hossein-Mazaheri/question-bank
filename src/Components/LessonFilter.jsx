@@ -32,17 +32,7 @@ function LessonFilter() {
   return (
     <div className="px-5 py-3 bg-white space-y-3 rounded-md">
       <h2>مبحث درسی :</h2>
-      <Tree
-        checkable
-        // onExpand={onExpand}
-        // expandedKeys={expandedKeys}
-        // autoExpandParent={autoExpandParent}
-        onCheck={setCategory}
-        // checkedKeys={checkedKeys}
-        // onSelect={onSelect}
-        // selectedKeys={selectedKeys}
-        treeData={convertCategory(data)}
-      />
+      <Tree checkable onCheck={setCategory} treeData={convertCategory(data)} />
     </div>
   );
 }
