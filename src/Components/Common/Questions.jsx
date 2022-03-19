@@ -23,7 +23,8 @@ function Questions() {
         params: urlParams,
       })
       .then((res) => {
-        return res.data;
+        console.log(res);
+        return res.data.results;
       })
       .catch((err) => console.log(err.response));
 
@@ -47,31 +48,32 @@ function Questions() {
     );
   }
 
-  console.log(urlParams);
+  console.log(questionsData);
 
   return (
     <div>
       <span className="hidden">{forceToUpdate}</span>
-      {questionsData.map(({ results: questions }, index) => (
+      {questionsData.map((questions, index) => (
         <div key={index} className="space-y-8">
-          {questions.map((question) => (
-            <Question
-              key={question.id}
-              id={question.id}
-              categories={[
-                question.major,
-                question.grade,
-                question.course,
-                question.subject,
-              ]}
-              title={question.description}
-              correctAnswer={
-                question.choices.find((choice) => choice.is_correct)?.text
-              }
-              reports={120}
-              numberHardnessLevel={question.level}
-            />
-          ))}
+          {questions &&
+            questions.map((question) => (
+              <Question
+                key={question.id}
+                id={question.id}
+                categories={[
+                  question.major,
+                  question.grade,
+                  question.course,
+                  question.subject,
+                ]}
+                title={question.description}
+                correctAnswer={
+                  question.choices.find((choice) => choice.is_correct)?.text
+                }
+                reports={120}
+                numberHardnessLevel={question.level}
+              />
+            ))}
         </div>
       ))}
       <div className="mt-7 mb-5">
