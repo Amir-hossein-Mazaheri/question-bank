@@ -8,7 +8,7 @@ function TextEditor({ className, ...others }) {
         editor={Editor}
         config={{
           ckfinder: {
-            uploadUrl: "/ckeditor",
+            uploadUrl: "http://lapluse.ir/examapi/ckeditor/",
           },
         }}
         {...others}

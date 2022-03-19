@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import MainLayout from "./Layouts/MainLayout";
 import Sidebar from "./Components/Common/Sidebar";
 import Contents from "./Components/Common/Contents";
@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Container from "./Layouts/Container";
 import { Spin } from "antd";
 import NotFoundPage from "./404";
+import Auth from "./Helpers/Auth";
+import axios from "axios";
 // lazy load pages
 const AddQuestion = lazy(() => import("./Components/AddQuestion/AddQuestion"));
 const EditQuestion = lazy(() =>
@@ -18,6 +20,21 @@ const ShowSingleQuestion = lazy(() =>
 );
 
 function App() {
+  useEffect(() => {
+    const isLoggedIn = Auth.isLoggedIn();
+    if (!isLoggedIn) {
+      window.location.replace("http://lapluse.ir/exam-login/");
+      return;
+    }
+    axios.get("/panel/").then((res) => {
+      const role = res.data.role;
+      console.log(role);
+      if (role !== "exam_creator") {
+        window.location.replace("http://lapluse.ir/exam-login/");
+      }
+    });
+  });
+
   return (
     <Provider store={Store}>
       <Router basename={"question-bank"}>
