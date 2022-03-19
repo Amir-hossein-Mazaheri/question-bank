@@ -29,7 +29,7 @@ function App() {
     axios.get("/panel/").then((res) => {
       const role = res.data.role;
       console.log(role);
-      if (role !== "exam_creator") {
+      if (role !== "question_creator") {
         window.location.replace("http://lapluse.ir/exam-login/");
       }
     });
