@@ -24,6 +24,9 @@ function Questions() {
       })
       .then((res) => {
         console.log(res);
+        if (res.data.next === null) {
+          return;
+        }
         return res.data.results;
       })
       .catch((err) => console.log(err.response));
