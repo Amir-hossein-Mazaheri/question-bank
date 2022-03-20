@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Spin } from "antd";
 import useSWRInfinite from "swr/infinite";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 function Questions() {
+  const [nextStatus, setNextStatus] = useState();
   const { forceToUpdate, urlParams } = useSelector(
     (store) => store.entities.filters
   );
@@ -24,9 +25,7 @@ function Questions() {
       })
       .then((res) => {
         console.log(res);
-        if (res.data.next === null) {
-          return;
-        }
+        setNextStatus(res.data.next);
         return res.data.results;
       })
       .catch((err) => console.log(err.response));
@@ -80,28 +79,30 @@ function Questions() {
         </div>
       ))}
       <div className="mt-7 mb-5">
-        <Btn
-          onClick={() => setSize(size + 1)}
-          className="border border-gray-300 flex items-center gap-1 mx-auto"
-        >
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-          </span>
-          <span>بارگزاری بیشتر</span>
-        </Btn>
+        {nextStatus !== null && (
+          <Btn
+            onClick={() => setSize(size + 1)}
+            className="border border-gray-300 flex items-center gap-1 mx-auto"
+          >
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+            </span>
+            <span>بارگزاری بیشتر</span>
+          </Btn>
+        )}
       </div>
     </div>
   );
