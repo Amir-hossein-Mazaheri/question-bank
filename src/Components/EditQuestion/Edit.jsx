@@ -17,22 +17,6 @@ function Edit({ questionId }) {
     (store) => store.entities.question.question
   );
 
-  // const isCategoryEmpty = useCallback(() => {
-  //   return Object.values(categories).some(
-  //     (category) => category === "" || category.trim() === ""
-  //   );
-  // }, [categories]);
-
-  // const validateFormData = useCallback(() => {
-  //   if (isCategoryEmpty()) {
-  //     message.error("لطفا همه دسته بندی ها رو تکمیل کنید.");
-  //     console.log(isCategoryEmpty());
-  //     console.log(categories);
-  //     return;
-  //   }
-  //   console.log("ok");
-  // }, [categories, isCategoryEmpty]);
-
   const sendData = async () => {
     const res = await axios.get(`/questions/${questionId}`);
     const choicesBackEndGeneratedData = res.data.choices.map(
@@ -50,7 +34,7 @@ function Edit({ questionId }) {
       complete_answer: questionProperties.fullAnswer,
       level: questionProperties.hardness,
       randomize: questionProperties.randomize,
-      // subject: categories.subject,
+      subject: categories.subject,
     };
     console.log(postBody);
     try {

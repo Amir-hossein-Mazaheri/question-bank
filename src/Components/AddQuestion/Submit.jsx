@@ -15,22 +15,6 @@ function Submit() {
     (store) => store.entities.question.question
   );
 
-  // const isCategoryEmpty = useCallback(() => {
-  //   return Object.values(categories).some(
-  //     (category) => category === "" || category.trim() === ""
-  //   );
-  // }, [categories]);
-
-  // const validateFormData = useCallback(() => {
-  //   if (isCategoryEmpty()) {
-  //     message.error("لطفا همه دسته بندی ها رو تکمیل کنید.");
-  //     console.log(isCategoryEmpty());
-  //     console.log(categories);
-  //     return;
-  //   }
-  //   console.log("ok");
-  // }, [categories, isCategoryEmpty]);
-
   const sendData = async () => {
     const postBody = {
       choices: questionProperties.set.map((choice, index) => ({
@@ -41,6 +25,7 @@ function Submit() {
       image: null,
       level: questionProperties.hardness,
       randomize: questionProperties.randomize,
+      complete_answer: categories.fullAnswer,
       subject: categories.subject,
     };
     console.log(postBody);
@@ -57,9 +42,6 @@ function Submit() {
   return (
     <div className="fixed bottom-5 left-5">
       <div className="flex gap-5 text-white">
-        {/* <Link to="/">
-          <Btn className="bg-red-500 rounded-full px-8">لغو</Btn>
-        </Link> */}
         <CancelButton />
         <Btn onClick={sendData} className="bg-green-500 rounded-full px-8">
           ثبت
