@@ -25,7 +25,7 @@ function Submit() {
       image: null,
       level: questionProperties.hardness,
       randomize: questionProperties.randomize,
-      complete_answer: categories.fullAnswer,
+      complete_answer: questionProperties.fullAnswer,
       subject: categories.subject,
     };
     console.log(postBody);

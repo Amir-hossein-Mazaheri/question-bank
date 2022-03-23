@@ -19,6 +19,9 @@ axios.interceptors.response.use(
   async (err) => {
     const config = err.config;
     if (err.response.status === 401) {
+      if (Auth.isTokenExpired("refresh")) {
+        window.location.replace("http://lapluse.ir/exam-login/");
+      }
       console.log("getting refresh !");
       const refresh = await Auth.checkLogin();
       localStorage.setItem("refresh", refresh);
