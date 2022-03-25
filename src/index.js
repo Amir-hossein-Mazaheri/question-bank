@@ -23,9 +23,10 @@ axios.interceptors.response.use(
         window.location.replace("http://lapluse.ir/exam-login/");
       }
       console.log("getting refresh !");
-      const refresh = await Auth.checkLogin();
-      localStorage.setItem("refresh", refresh);
-      config.headers["Authorization"] = "Bearer " + refresh;
+      const access = await Auth.checkLogin();
+      localStorage.setItem("access", access);
+      config.headers["Authorization"] = "Bearer " + access;
+      console.log("new access token : ", Auth.getToken("access"));
       return axios(config);
     }
 
