@@ -32,7 +32,7 @@ function Sidebar() {
   }, []);
 
   return (
-    <div className="bg-stone-900 px-5 py-2 h-screen text-white">
+    <div className="bg-stone-900 px-5 py-2 flex flex-col justify-between h-screen text-white">
       <div>
         <HardnessFilter />
         <LessonFilter />
