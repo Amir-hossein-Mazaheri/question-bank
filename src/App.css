@@ -24,3 +24,7 @@
 .question-body a {
   @apply text-blue-600 underline;
 }
+
+.question-title p {
+  @apply flex gap-3 items-center flex-wrap;
+}

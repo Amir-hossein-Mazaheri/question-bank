@@ -29,7 +29,10 @@ function Question({
       <div className="flex items-center flex-wrap gap-y-5 justify-between">
         <div>
           <p>
-            <div dangerouslySetInnerHTML={{ __html: title }}></div>
+            <div
+              className="question-title"
+              dangerouslySetInnerHTML={{ __html: title }}
+            ></div>
           </p>
         </div>
         <ul className="flex gap-5">
