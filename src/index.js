@@ -34,6 +34,12 @@ axios.interceptors.response.use(
   }
 );
 
+if (process.env.NODE_ENV === "production") {
+  console.log = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+}
+
 ReactDOM.render(
   <StrictMode>
     <ConfigProvider direction="rtl">
