@@ -1,12 +1,13 @@
-import React, { StrictMode } from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import "vazir-font/dist/Farsi-Digits/font-face-FD.css";
+import { StrictMode } from "react";
+import { render } from "react-dom";
+
 import { ConfigProvider } from "antd";
 import axios from "axios";
-import "antd/dist/antd.css";
+import App from "./App";
 import Auth from "./Helpers/Auth";
 
+import "vazir-font/dist/Farsi-Digits/font-face-FD.css";
+import "antd/dist/antd.css";
 import "./index.css";
 import "./App.css";
 
@@ -40,7 +41,7 @@ if (process.env.NODE_ENV === "production") {
   console.debug = () => {};
 }
 
-ReactDOM.render(
+render(
   <StrictMode>
     <ConfigProvider direction="rtl">
       <App />
