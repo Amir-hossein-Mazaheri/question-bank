@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { SET_SEARCH_QUERY } from "../Store/entities/filters";
 
 function SearchBar(props) {
+  const { searchQuery } = useSelector((store) => store.entities.filters);
   const dispatch = useDispatch();
 
   return (
@@ -28,6 +30,7 @@ function SearchBar(props) {
           <input
             placeholder="جستجو..."
             type="text"
+            value={searchQuery || null}
             name="search-questions"
             id="search-questions"
             className="outline-none w-full bg-transparent"
