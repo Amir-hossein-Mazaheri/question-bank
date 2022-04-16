@@ -3,6 +3,8 @@ import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import {
+  RESET_CATEGORIES,
+  RESET_QUESTION,
   SET_CATEGORY,
   SET_QUESTION_Property,
   SET_ROUTE_BY_BUTTON,
@@ -48,8 +50,13 @@ function EditQuestion() {
       );
       const steps = ["major", "grade", "course", "subject"];
       for (let i = 0; i < steps.length; i++) {
+        const category = question.categories[i];
         dispatch(
-          SET_CATEGORY({ type: steps[i], value: question.categories[i] })
+          SET_CATEGORY({
+            type: steps[i],
+            id: category.id,
+            value: category.name,
+          })
         );
       }
     },
@@ -57,10 +64,6 @@ function EditQuestion() {
   );
 
   useEffect(() => {
-    // if (!isRouteByButton) {
-    //   navigate("/", { replace: true });
-    //   message.error("دسترسی غیر مجاز");
-    // }
     axios.get(`/questions/${id}`).then((res) => {
       const convertedData = {
         ...res.data,
@@ -75,6 +78,14 @@ function EditQuestion() {
       setQuestionData(convertedData);
     });
   }, [id, setQuestionData]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(RESET_QUESTION());
+      dispatch(RESET_CATEGORIES());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
