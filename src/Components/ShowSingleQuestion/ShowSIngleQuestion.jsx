@@ -48,6 +48,8 @@ function ShowSingleQuestion() {
       hardnessLevel = "نامشخص";
   }
 
+  console.log(question);
+
   return (
     <>
       <div>
@@ -75,7 +77,7 @@ function ShowSingleQuestion() {
                   key={category.toString()}
                   className="px-3 py-1 rounded-md bg-sky-500 text-white"
                 >
-                  {category}
+                  {category.name}
                 </li>
               ))}
               <li className="px-3 py-1 rounded-md bg-sky-500 text-white">
