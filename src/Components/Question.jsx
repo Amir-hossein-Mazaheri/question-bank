@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import convertHardness from "../Helpers/convertHardness";
 import Btn from "./Common/Btn";
+import { message } from "antd";
 
 function Question({
   id,
@@ -16,8 +17,14 @@ function Question({
   const deleteQuestion = useCallback(() => {
     axios
       .delete(`/questions/${id}`)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err.response));
+      .then((res) => {
+        message.success("سوال با موفقیت حذف شد.");
+        console.log(res);
+      })
+      .catch((err) => {
+        message.error("در حذف سوال مشکلی پیش آمده است.");
+        console.log(err.response);
+      });
   }, [id]);
 
   const categoriesStyle = "px-3 py-1 bg-blue-500 text-white rounded-md";
