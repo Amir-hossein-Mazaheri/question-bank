@@ -12,6 +12,7 @@ function SelectCategory() {
   const [majorIndex, setMajorIndex] = useState(0);
   const [gradeIndex, setGradeIndex] = useState(0);
   const [courseIndex, setCourseIndex] = useState(0);
+
   const { major, grade, course, subject } = useSelector(
     (store) => store.entities.question.questionCategories
   );
@@ -21,8 +22,8 @@ function SelectCategory() {
   const dispatch = useDispatch();
 
   const applySelectValue = useCallback(
-    (value, type) => {
-      dispatch(SET_CATEGORY({ type, value }));
+    (type, value, id) => {
+      dispatch(SET_CATEGORY({ type, id, value }));
     },
     [dispatch]
   );
@@ -43,17 +44,17 @@ function SelectCategory() {
       <div className="flex gap-5 items-center">
         <div>
           <Select
-            value={major || "رشته تحصیلی"}
+            value={major.value || "رشته تحصیلی"}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, index] = value.split("-");
+              const [id, name, index] = value.split("-");
               console.log(id, index);
-              applySelectValue(Number(id), "major");
+              applySelectValue("major", name, Number(id));
               setMajorIndex(Number(index));
             }}
           >
             {categories.map(({ name, id }, index) => (
-              <Option ket={name} value={`${id}-${index}`}>
+              <Option key={id} value={`${id}-${name}-${index}`}>
                 <span>{name}</span>
               </Option>
             ))}
@@ -61,19 +62,19 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            value={grade || "پایه تحصیلی"}
-            disabled={major ? false : true}
+            value={grade.value || "پایه تحصیلی"}
+            disabled={major.id ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, index] = value.split("-");
+              const [id, name, index] = value.split("-");
               console.log(id, index);
-              applySelectValue(Number(id), "grade");
+              applySelectValue("grade", name, Number(id));
               setGradeIndex(Number(index));
             }}
           >
-            {major &&
+            {major.id &&
               categories[majorIndex].grades.map(({ name, id }, index) => (
-                <Option ket={name} value={`${id}-${index}`}>
+                <Option key={id} value={`${id}-${name}-${index}`}>
                   <span>{name}</span>
                 </Option>
               ))}
@@ -81,20 +82,20 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            value={course || "نام درس"}
-            disabled={major && grade ? false : true}
+            value={course.value || "نام درس"}
+            disabled={major.id && grade.id ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, index] = value.split("-");
+              const [id, name, index] = value.split("-");
               console.log(id, index);
-              applySelectValue(Number(id), "course");
+              applySelectValue("course", name, Number(id));
               setCourseIndex(Number(index));
             }}
           >
-            {grade &&
+            {grade.id &&
               categories[majorIndex].grades[gradeIndex].courses.map(
                 ({ name, id }, index) => (
-                  <Option ket={name} value={`${id}-${index}`}>
+                  <Option key={id} value={`${id}-${name}-${index}`}>
                     <span>{name}</span>
                   </Option>
                 )
@@ -103,20 +104,20 @@ function SelectCategory() {
         </div>
         <div>
           <Select
-            value={subject || "مبحث درسی"}
-            disabled={major && grade && course ? false : true}
+            value={subject.value || "مبحث درسی"}
+            disabled={major.id && grade.id && course.id ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, index] = value.split("-");
+              const [id, name, index] = value.split("-");
               console.log(id, index);
-              applySelectValue(Number(id), "subject");
+              applySelectValue("subject", name, Number(id));
             }}
           >
-            {course &&
+            {course.id &&
               categories[majorIndex].grades[gradeIndex].courses[
                 courseIndex
               ].subjects.map(({ name, id }, index) => (
-                <Option ket={name} value={`${id}-${index}`}>
+                <Option key={id} value={`${id}-${name}-${index}`}>
                   <span>{name}</span>
                 </Option>
               ))}
