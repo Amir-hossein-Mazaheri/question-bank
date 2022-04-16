@@ -63,10 +63,10 @@ function Questions() {
                 key={question.id}
                 id={question.id}
                 categories={[
-                  question.major,
-                  question.grade,
-                  question.course,
-                  question.subject,
+                  question.major.name,
+                  question.grade.name,
+                  question.course.name,
+                  question.subject.name,
                 ]}
                 title={question.description}
                 correctAnswer={
