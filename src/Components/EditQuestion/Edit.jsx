@@ -34,7 +34,7 @@ function Edit({ questionId }) {
       complete_answer: questionProperties.fullAnswer,
       level: questionProperties.hardness,
       randomize: questionProperties.randomize,
-      subject: categories.subject,
+      subject: categories.subject.id,
     };
     console.log(postBody);
     try {
