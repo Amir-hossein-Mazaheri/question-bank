@@ -4,9 +4,15 @@ import { useSelector } from "react-redux";
 import Btn from "../Common/Btn";
 import { useNavigate } from "react-router";
 import CancelButton from "../Common/CancelButton";
+import { useDispatch } from "react-redux";
+import {
+  RESET_CATEGORIES,
+  RESET_QUESTION,
+} from "../../Store/entities/question";
 
 function Submit() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const categories = useSelector(
     (store) => store.entities.question.questionCategories
   );
@@ -37,6 +43,9 @@ function Submit() {
       console.log(error);
       message.error("یکی از فیلد ها خالی می باشد");
     }
+    // reset form data
+    dispatch(RESET_CATEGORIES());
+    dispatch(RESET_QUESTION());
   };
 
   return (
