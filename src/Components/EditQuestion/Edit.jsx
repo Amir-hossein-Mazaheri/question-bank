@@ -39,7 +39,7 @@ function Edit({ questionId }) {
     console.log(postBody);
     try {
       await axios.patch(`/questions/${questionId}/`, postBody);
-      message.success("سوال یا موفقیت ویرایش شد.");
+      message.success("سوال با موفقیت ویرایش شد.");
       navigate("/", { replace: true });
     } catch (error) {
       console.log(error.response);

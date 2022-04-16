@@ -32,12 +32,12 @@ function Submit() {
       level: questionProperties.hardness,
       randomize: questionProperties.randomize,
       complete_answer: questionProperties.fullAnswer,
-      subject: categories.subject,
+      subject: categories.subject.id,
     };
     console.log(postBody);
     try {
       await axios.post("/questions/", postBody);
-      message.success("سوال یا موفقیت افزوده شد.");
+      message.success("سوال با موفقیت افزوده شد.");
       navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
