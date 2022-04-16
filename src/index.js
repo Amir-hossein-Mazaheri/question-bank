@@ -11,6 +11,18 @@ import "antd/dist/antd.css";
 import "./index.css";
 import "./App.css";
 
+if (process.env.NODE_ENV === "development") {
+  localStorage.setItem(
+    "refresh",
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1MDE5NzQzOSwianRpIjoiYTMwMGQyNzc3MTEzNDllYWEyYjNjNDIzZjRiZDcwY2QiLCJ1c2VyX2lkIjoxfQ.P8pz26FJUuu7pou-fWnYzzVTErpk0N2qMDq97sqMtcw"
+  );
+
+  localStorage.setItem(
+    "access",
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMTExMzM5LCJqdGkiOiI2OGZiNDM1NmIyY2U0NmIwYjEyNGMxZDQzYWY1OWE3NSIsInVzZXJfaWQiOjF9.-ZPN-gIvf-UnMvcfjCuor08gDQAXmMd5UZaDEc6gkhs"
+  );
+}
+
 axios.defaults.baseURL = "http://lapluse.ir/examapi";
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + Auth.getToken("access");
