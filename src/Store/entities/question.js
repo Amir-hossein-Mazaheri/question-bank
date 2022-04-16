@@ -1,10 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialCategories = {
-  major: "",
-  grade: "",
-  course: "",
-  subject: "",
+  major: {
+    id: undefined,
+    value: "",
+  },
+  grade: {
+    id: undefined,
+    value: "",
+  },
+  course: {
+    id: undefined,
+    value: "",
+  },
+  subject: {
+    id: undefined,
+    value: "",
+  },
 };
 
 const initialQuestion = {
@@ -23,7 +35,9 @@ const question = createSlice({
   },
   reducers: {
     SET_CATEGORY: (store, action) => {
-      store.questionCategories[action.payload.type] = action.payload.value;
+      store.questionCategories[action.payload.type].id = action.payload.id;
+      store.questionCategories[action.payload.type].value =
+        action.payload.value;
     },
     SET_QUESTION_HARDNESS: (store, action) => {
       store.question.hardness = action.payload.hardness;
