@@ -73,7 +73,7 @@ function SelectCategory() {
             }}
           >
             {major.id &&
-              categories[majorIndex].grades.map(({ name, id }, index) => (
+              categories[majorIndex]?.grades?.map(({ name, id }, index) => (
                 <Option key={id} value={`${id}-${name}-${index}`}>
                   <span>{name}</span>
                 </Option>
@@ -93,7 +93,7 @@ function SelectCategory() {
             }}
           >
             {grade.id &&
-              categories[majorIndex].grades[gradeIndex].courses.map(
+              categories[majorIndex]?.grades[gradeIndex]?.courses?.map(
                 ({ name, id }, index) => (
                   <Option key={id} value={`${id}-${name}-${index}`}>
                     <span>{name}</span>
@@ -114,9 +114,9 @@ function SelectCategory() {
             }}
           >
             {course.id &&
-              categories[majorIndex].grades[gradeIndex].courses[
+              categories[majorIndex]?.grades[gradeIndex]?.courses[
                 courseIndex
-              ].subjects.map(({ name, id }, index) => (
+              ]?.subjects?.map(({ name, id }, index) => (
                 <Option key={id} value={`${id}-${name}-${index}`}>
                   <span>{name}</span>
                 </Option>
