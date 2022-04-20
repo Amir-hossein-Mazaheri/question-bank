@@ -14,12 +14,12 @@ import "./App.css";
 if (process.env.NODE_ENV === "development") {
   localStorage.setItem(
     "refresh",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1MDE5NzQzOSwianRpIjoiYTMwMGQyNzc3MTEzNDllYWEyYjNjNDIzZjRiZDcwY2QiLCJ1c2VyX2lkIjoxfQ.P8pz26FJUuu7pou-fWnYzzVTErpk0N2qMDq97sqMtcw"
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1MDUzNzU4MywianRpIjoiYzlhOWE2ODNlYzE4NDQxMmE0OTA2YWUyNWI0ODJkYjYiLCJ1c2VyX2lkIjoxfQ.pw3MTEVbJnL1fidr0xRk-TX15Qgm_kTiuGQ4d6A_nEY"
   );
 
   localStorage.setItem(
     "access",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMTExMzM5LCJqdGkiOiI2OGZiNDM1NmIyY2U0NmIwYjEyNGMxZDQzYWY1OWE3NSIsInVzZXJfaWQiOjF9.-ZPN-gIvf-UnMvcfjCuor08gDQAXmMd5UZaDEc6gkhs"
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwNDUxNDgzLCJqdGkiOiI5NmQxYTQxYTg1Mzk0YWZkOWIyOTIyMjJiMTc3NTVhZSIsInVzZXJfaWQiOjF9.HG-2DCXW1e52Tj2llbyrrqQWReTbZ6-HdI5nZNXCiPg"
   );
 }
 
