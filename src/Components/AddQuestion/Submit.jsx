@@ -39,13 +39,14 @@ function Submit() {
       await axios.post("/questions/", postBody);
       message.success("سوال با موفقیت افزوده شد.");
       navigate("/", { replace: true });
+      // reset form data
+      dispatch(RESET_CATEGORIES());
+      dispatch(RESET_QUESTION());
     } catch (error) {
       console.log(error);
+      console.log(error.response);
       message.error("یکی از فیلد ها خالی می باشد");
     }
-    // reset form data
-    dispatch(RESET_CATEGORIES());
-    dispatch(RESET_QUESTION());
   };
 
   return (
