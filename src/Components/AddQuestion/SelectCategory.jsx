@@ -1,5 +1,6 @@
-import { Select, Spin } from "antd";
 import { useCallback, useState } from "react";
+
+import { Select, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import useSWR from "swr";
 import fetcher from "../../Helpers/fetcher";
@@ -8,12 +9,10 @@ import { SET_CATEGORY } from "../../Store/entities/question";
 
 const { Option } = Select;
 
-const SPLITTER = "///";
-
 function SelectCategory() {
-  const [majorIndex, setMajorIndex] = useState(0);
-  const [gradeIndex, setGradeIndex] = useState(0);
-  const [courseIndex, setCourseIndex] = useState(0);
+  const [majorIndex, setMajorIndex] = useState(undefined);
+  const [gradeIndex, setGradeIndex] = useState(undefined);
+  const [courseIndex, setCourseIndex] = useState(undefined);
 
   const { major, grade, course, subject } = useSelector(
     (store) => store.entities.question.questionCategories
@@ -28,6 +27,56 @@ function SelectCategory() {
       dispatch(SET_CATEGORY({ type, id, value }));
     },
     [dispatch]
+  );
+
+  const partialCategoryReset = useCallback(
+    (type) => {
+      const reset = (name) => applySelectValue(name, undefined, "");
+
+      switch (type) {
+        case "major":
+          setMajorIndex(0);
+          reset("grade");
+          reset("course");
+          reset("subject");
+          break;
+        case "grade":
+          reset("course");
+          reset("subject");
+          break;
+        case "course":
+          reset("subject");
+          break;
+        default:
+          return;
+      }
+    },
+    [applySelectValue]
+  );
+
+  const stringifyValue = useCallback((id, name, index) => {
+    return JSON.stringify({
+      id,
+      name,
+      index,
+    });
+  }, []);
+
+  const changeSelect = useCallback(
+    (value, type, indexSetter) => {
+      // console.log("indexes", majorIndex, gradeIndex, courseIndex);
+      partialCategoryReset(type);
+      const { id, name, index } = JSON.parse(value);
+      console.log(`${type} id is :`, id);
+      console.log(`${type} name is :`, name);
+      console.log(`${type} index is :`, index);
+      applySelectValue(type, name, Number(id));
+      if (indexSetter) {
+        indexSetter(Number(index));
+      }
+      // console.log("indexes", majorIndex, gradeIndex, courseIndex);
+    },
+    [applySelectValue, partialCategoryReset]
   );
 
   if (!categories) {
@@ -48,19 +97,10 @@ function SelectCategory() {
           <Select
             value={major.value || "رشته تحصیلی"}
             className="min-w-[10rem]"
-            onChange={(value) => {
-              const [id, name, index] = value.split(SPLITTER);
-              console.log(id, index);
-              applySelectValue("major", name, Number(id));
-              setMajorIndex(Number(index));
-              console.log("major index", Number(index));
-            }}
+            onChange={(value) => changeSelect(value, "major", setMajorIndex)}
           >
             {categories.map(({ name, id }, index) => (
-              <Option
-                key={id}
-                value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
-              >
+              <Option key={id} value={stringifyValue(id, name, index)}>
                 <span>{name}</span>
               </Option>
             ))}
@@ -71,20 +111,11 @@ function SelectCategory() {
             value={grade.value || "پایه تحصیلی"}
             disabled={major.id ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => {
-              const [id, name, index] = value.split(SPLITTER);
-              console.log(id, index);
-              applySelectValue("grade", name, Number(id));
-              setGradeIndex(Number(index));
-              console.log("grades index", Number(index));
-            }}
+            onChange={(value) => changeSelect(value, "grade", setGradeIndex)}
           >
             {major.id &&
               categories[majorIndex]?.grades?.map(({ name, id }, index) => (
-                <Option
-                  key={id}
-                  value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
-                >
+                <Option key={id} value={stringifyValue(id, name, index)}>
                   <span>{name}</span>
                 </Option>
               ))}
@@ -95,21 +126,12 @@ function SelectCategory() {
             value={course.value || "نام درس"}
             disabled={major.id && grade.id ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => {
-              const [id, name, index] = value.split(SPLITTER);
-              console.log(id, name, index);
-              applySelectValue("course", name, Number(id));
-              setCourseIndex(Number(index));
-              console.log("course index", Number(index));
-            }}
+            onChange={(value) => changeSelect(value, "course", setCourseIndex)}
           >
             {grade.id &&
               categories[majorIndex]?.grades[gradeIndex]?.courses?.map(
                 ({ name, id }, index) => (
-                  <Option
-                    key={id}
-                    value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
-                  >
+                  <Option key={id} value={stringifyValue(id, name, index)}>
                     <span>{name}</span>
                   </Option>
                 )
@@ -121,21 +143,13 @@ function SelectCategory() {
             value={subject.value || "مبحث درسی"}
             disabled={major.id && grade.id && course.id ? false : true}
             className="min-w-[10rem]"
-            onChange={(value) => {
-              const [id, name, index] = value.split(SPLITTER);
-              console.log(id, index);
-              applySelectValue("subject", name, Number(id));
-              console.log("subject index", Number(index));
-            }}
+            onChange={(value) => changeSelect(value, "subject")}
           >
             {course.id &&
               categories[majorIndex]?.grades[gradeIndex]?.courses[
                 courseIndex
               ]?.subjects?.map(({ name, id }, index) => (
-                <Option
-                  key={id}
-                  value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
-                >
+                <Option key={id} value={stringifyValue(id, name, index)}>
                   <span>{name}</span>
                 </Option>
               ))}
