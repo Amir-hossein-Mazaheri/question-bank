@@ -8,6 +8,8 @@ import { SET_CATEGORY } from "../../Store/entities/question";
 
 const { Option } = Select;
 
+const SPLITTER = "///";
+
 function SelectCategory() {
   const [majorIndex, setMajorIndex] = useState(0);
   const [gradeIndex, setGradeIndex] = useState(0);
@@ -47,14 +49,18 @@ function SelectCategory() {
             value={major.value || "رشته تحصیلی"}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, name, index] = value.split("-");
+              const [id, name, index] = value.split(SPLITTER);
               console.log(id, index);
               applySelectValue("major", name, Number(id));
               setMajorIndex(Number(index));
+              console.log("major index", Number(index));
             }}
           >
             {categories.map(({ name, id }, index) => (
-              <Option key={id} value={`${id}-${name}-${index}`}>
+              <Option
+                key={id}
+                value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
+              >
                 <span>{name}</span>
               </Option>
             ))}
@@ -66,15 +72,19 @@ function SelectCategory() {
             disabled={major.id ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, name, index] = value.split("-");
+              const [id, name, index] = value.split(SPLITTER);
               console.log(id, index);
               applySelectValue("grade", name, Number(id));
               setGradeIndex(Number(index));
+              console.log("grades index", Number(index));
             }}
           >
             {major.id &&
               categories[majorIndex]?.grades?.map(({ name, id }, index) => (
-                <Option key={id} value={`${id}-${name}-${index}`}>
+                <Option
+                  key={id}
+                  value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
+                >
                   <span>{name}</span>
                 </Option>
               ))}
@@ -86,16 +96,20 @@ function SelectCategory() {
             disabled={major.id && grade.id ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, name, index] = value.split("-");
-              console.log(id, index);
+              const [id, name, index] = value.split(SPLITTER);
+              console.log(id, name, index);
               applySelectValue("course", name, Number(id));
               setCourseIndex(Number(index));
+              console.log("course index", Number(index));
             }}
           >
             {grade.id &&
               categories[majorIndex]?.grades[gradeIndex]?.courses?.map(
                 ({ name, id }, index) => (
-                  <Option key={id} value={`${id}-${name}-${index}`}>
+                  <Option
+                    key={id}
+                    value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
+                  >
                     <span>{name}</span>
                   </Option>
                 )
@@ -108,16 +122,20 @@ function SelectCategory() {
             disabled={major.id && grade.id && course.id ? false : true}
             className="min-w-[10rem]"
             onChange={(value) => {
-              const [id, name, index] = value.split("-");
+              const [id, name, index] = value.split(SPLITTER);
               console.log(id, index);
               applySelectValue("subject", name, Number(id));
+              console.log("subject index", Number(index));
             }}
           >
             {course.id &&
               categories[majorIndex]?.grades[gradeIndex]?.courses[
                 courseIndex
               ]?.subjects?.map(({ name, id }, index) => (
-                <Option key={id} value={`${id}-${name}-${index}`}>
+                <Option
+                  key={id}
+                  value={`${id}${SPLITTER}${name}${SPLITTER}${index}`}
+                >
                   <span>{name}</span>
                 </Option>
               ))}
