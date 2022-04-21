@@ -25,6 +25,7 @@ const initialQuestion = {
   set: ["", "", "", ""],
   answer: "",
   fullAnswer: "",
+  randomize: false,
 };
 
 const question = createSlice({
